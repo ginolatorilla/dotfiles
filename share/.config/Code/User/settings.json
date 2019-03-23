@@ -6,7 +6,7 @@
         "/**", "//"
     ],
     "terminal.integrated.shell.linux": "/usr/bin/fish",
-    "workbench.colorTheme": "Solarized Light",
+    "workbench.colorTheme": "Atom One Light",
     "terminal.integrated.copyOnSelection": true,
     "window.menuBarVisibility": "default",
     "window.zoomLevel": 0,
@@ -15,5 +15,6 @@
     "markdown.extension.orderedList.marker": "one",
     "editor.cursorBlinking": "phase",
     "markdown.extension.toc.githubCompatibility": true,
-    "editor.minimap.enabled": true
+    "editor.minimap.enabled": true,
+    "workbench.iconTheme": "material-icon-theme"
 }
