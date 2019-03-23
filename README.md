@@ -1,17 +1,18 @@
-# dotfiles
+Gino Latorilla's dotfiles
+=========================
 
-My personal dotfiles for **[Linux Mint Tara](https://linuxmint.com/edition.php?id=258)**.
+Features
+--------
+
+- Creates backups of overwritten links in `$DOTFILE_DIR/var/backup_*`
+- Unlinks and restores real files with `dotfiles --unlink`.
+- Preview actions with `dotfiles --dry-run`.
+
+Quickstart
+----------
+
+1. `git clone` this repo.
+2. `cd dotfiles`.
+3. `./dotfiles`
 
 Inspired by: [cowboy/dotfiles](https://github.com/cowboy/dotfiles).
-
-## Installation
-
-1. Go to **dotfiles** root directory
-1. `~/.dotfiles/dotfiles`
-1. You can run `dotfiles` by itself next time you open a terminal window
-
-## Features
-
-- **dotfiles** will always backup what it overwrites to `~/.dotfiles/backup`.
-- It can revert the installation of links when called with `-u` or `--unlink`.
-- For debugging, you can call it with `--dry-run` to view future changes.
