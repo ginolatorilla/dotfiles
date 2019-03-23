@@ -1,3 +1,6 @@
 [user]
 	name = Gino Latorilla
-	email = pblatorilla+github@gmail.com
+	email = pblatorilla+accounts@gmail.com
+	signingkey = 0836D81F
+[commit]
+	gpgSign = true
