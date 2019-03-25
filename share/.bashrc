@@ -118,7 +118,7 @@ fi
 
 # set PATH so it includes user's private bin directories
 export EDITOR='/usr/bin/vi'
-export VISUAL='/usr/bin/code'
+export VISUAL='/usr/bin/code --wait'
 
 # "Complex aliases"
 alias tgz='_(){ tar -zcvf $1.tgz $*"; }; _'

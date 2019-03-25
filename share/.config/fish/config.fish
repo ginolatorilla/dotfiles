@@ -1,2 +1,2 @@
 set --global --export EDITOR /usr/bin/vi
-set --global --export VISUAL /usr/bin/code
+set --global --export VISUAL '/usr/bin/code --wait'
