@@ -1,15 +1,6 @@
 set --global --export EDITOR /usr/bin/vi
 set --global --export VISUAL /usr/bin/code
 
-if [ -d ~/.local/node_modules/.bin ]
-    set --global --export PATH ~/.local/node_modules/.bin $PATH
-end
-
-set --local gemdir (gem environment | string match --regex '(?<=USER INSTALLATION DIRECTORY: ).*')/bin
-if [ -d "$gemdir" ]
-    set --global --export PATH "$gemdir" $PATH
-end
-
 # Reuse simple aliases
 source ~/.bash_aliases
 
