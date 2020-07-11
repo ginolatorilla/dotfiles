@@ -9,6 +9,17 @@ DOTFILE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 LIB_DIR="$DOTFILE_DIR/share"
 BACKUP_DIR="$DOTFILE_DIR/var/backup_$(date '+%Y-%m-%d_%H-%M-%S')"
 
+read -r -d '' __usage <<-'EOF' || true
+Usage: $(basename $0) [OPTIONS...]
+Installs links to dotfiles
+(c) 2020 Gino Latorilla
+
+  -h, --help        Shows this help text.
+      --dry-run     Show commands that will be called, but don't run them.
+  -f, --force       Force creation of symbolic links.
+  -u, --unlink      Replace installed links with their referrents.
+EOF
+
 function main()
 {
     trap on_interrupt SIGINT
@@ -28,12 +39,7 @@ function get_options()
     while true; do
         case "$1" in
             -h | --help)
-                echo "Usage: $(basename $0) [OPTIONS...]"
-                echo "Installs links to dotfiles"
-                echo "(c) 2018 Gino Latorilla"
-                echo ""
-                echo " -h, --help   Shows this help text."
-                echo " --dry-run    Show commands that will be called, but don't run them."
+                echo "$__usage"
                 exit 0;; # Tricky to see, but I should exit because no need to do anything.
             --dry-run)
                 dry_run=true
