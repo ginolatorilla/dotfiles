@@ -121,6 +121,4 @@ export EDITOR='/usr/bin/vim.tiny'
 export VISUAL='/usr/bin/code --wait'
 
 # "Complex aliases"
-alias tgz='_(){ tar -zcvf $1.tgz $*"; }; _'
 alias mkcd='_(){ mkdir -p "$*"; cd "$*"; }; _'
-alias srr='_(){ svn revert -R .; svn st --ignore-externals | grep "^?" | cut -c9- | xargs rm -rf; svn cleanup . }; _'
