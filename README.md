@@ -15,4 +15,13 @@ Quickstart
 2. `cd dotfiles`.
 3. `./dotfiles`
 
+Configurations Available
+------------------------
+
+- Bash, with aliases
+- Fish, with aliases
+- VS Code
+- Git
+- NPM
+
 Inspired by: [cowboy/dotfiles](https://github.com/cowboy/dotfiles).
