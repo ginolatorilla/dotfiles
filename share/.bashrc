@@ -117,7 +117,7 @@ if ! shopt -oq posix; then
 fi
 
 # set PATH so it includes user's private bin directories
-export EDITOR='/usr/bin/vi'
+export EDITOR='/usr/bin/vim.tiny'
 export VISUAL='/usr/bin/code --wait'
 
 # "Complex aliases"
