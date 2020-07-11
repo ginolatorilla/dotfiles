@@ -29,7 +29,7 @@ function main()
 
 function get_options()
 {
-    local TEMP=$(getopt -o hfu --long help,dry-run,force,unlink,dump-dconf,load-dconf -- "$@")
+    local TEMP=$(getopt -o hfu --long help,dry-run,force,unlink -- "$@")
     if [[ $? != 0 ]]; then exit 1; fi
     eval set -- "$TEMP"
 
