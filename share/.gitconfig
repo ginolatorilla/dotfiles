@@ -2,6 +2,7 @@
 	name = Gino Latorilla
 	email = pblatorilla+github@gmail.com
 	signingkey = 20F686340836D81F
-
 [commit]
-	gpgSign = true
+	gpgsign = true
+[core]
+	editor = code --wait
