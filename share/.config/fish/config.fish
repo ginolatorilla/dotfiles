@@ -1,6 +1,9 @@
 set --global --export EDITOR /usr/bin/vim.tiny
 set --global --export VISUAL "/usr/bin/code --wait"
+set --global --export DISPLAY (cat /etc/resolv.conf | grep -oP '(?<=nameserver ).+$'):0
 set --global --export BROWSER firefox
+set --global --export GPG_TYY (tty)
+fish_add_path $HOME/.local/bin
 
 # Linux Aliases
 alias ..="cd .."
