@@ -5,8 +5,7 @@ set --global --export BROWSER firefox
 set --global --export GPG_TTY (tty)
 fish_add_path $HOME/.local/bin
 
-keychain --agents gpg,ssh
-. $HOME/.keychain/(hostname)-(basename $SHELL)
+eval (keychain --agents gpg,ssh --eval)
 
 # Linux Aliases
 alias ..="cd .."
