@@ -11,16 +11,15 @@ Features
 Quickstart
 ----------
 
-1. `git clone` this repo.
+1. Clone this repo.
 2. `cd dotfiles`.
-3. `./dotfiles`
+3. `./install.sh`
 
 Configurations Available
 ------------------------
 
 - Bash, with aliases
 - Fish, with aliases
-- VS Code
 - Git
 - NPM
 
