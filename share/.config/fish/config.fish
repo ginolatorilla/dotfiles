@@ -10,7 +10,9 @@ set --global --export GPG_TTY (tty)
 
 fish_add_path $HOME/.local/bin
 
-eval (keychain --agents gpg,ssh --eval)
+if command -v keychain
+    eval (keychain --agents gpg,ssh --eval)
+end
 
 # Linux Aliases
 alias ..="cd .."
