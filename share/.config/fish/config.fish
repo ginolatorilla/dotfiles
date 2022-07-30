@@ -1,9 +1,12 @@
-set --global --export EDITOR /usr/bin/vim.tiny
-set --global --export VISUAL "/usr/bin/code --wait"
-# set --global --export DISPLAY (cat /etc/resolv.conf | grep -oP '(?<=nameserver ).+$'):0
-set --global --export BROWSER firefox
+if grep -q WSL /proc/version
+    # set --global --export DISPLAY (cat /etc/resolv.conf | grep -oP '(?<=nameserver ).+$'):0
+    # set --global --export PYTHON_KEYRING_BACKEND keyring.backends.null.Keyring
+    set --global --export BROWSER firefox
+    set --global --export EDITOR /usr/bin/vim.tiny
+    set --global --export VISUAL "/usr/bin/code --wait"
+end
+
 set --global --export GPG_TTY (tty)
-# set --global --export PYTHON_KEYRING_BACKEND keyring.backends.null.Keyring
 
 fish_add_path $HOME/.local/bin
 
