@@ -1,0 +1,56 @@
+---
+- name: Install
+  hosts: localhost
+  strategy: free
+  vars_files:
+    - vars/default.yaml
+    - "vars/{{ ansible_facts['hostname'] }}.yaml"
+  tasks:
+    - name: Install Starship (https://starship.rs/)
+      ansible.builtin.homebrew:
+        package: starship
+
+    - name: Install Fish (https://fishshell.com)
+      ansible.builtin.homebrew:
+        package: fish
+
+    - name: Install KICS (https://kics.checkmarx.net)
+      ansible.builtin.homebrew:
+        package: kics
+        state: absent
+
+
+- name: Configure'
+  hosts: localhost
+  vars_files:
+    - vars/default.yaml
+    - "vars/{{ ansible_facts['hostname'] }}.yaml"
+  tasks:
+    - name: Configure Starship
+      ansible.builtin.template:
+        src: templates/starship.toml
+        dest: ~/.config/starship.toml
+
+    - name: Configure Fish
+      ansible.builtin.template:
+        src: templates/config.fish
+        dest: ~/.config/fish/config.fish
+
+    - name: Configure SSH
+      when: __template__ is exists
+      vars:
+        __template__: "templates/{{ ansible_facts['hostname'] }}/ssh_config"
+      ansible.builtin.template:
+        src: "templates/{{ ansible_facts['hostname'] }}/ssh_config"
+        dest: ~/.ssh/config
+        mode: '400'
+
+    - name: Configure Bash Aliases
+      ansible.builtin.template:
+        src: templates/bash_aliases
+        dest: ~/.bash_aliases
+
+    - name: Configure Vim
+      ansible.builtin.template:
+        src: templates/vimrc
+        dest: ~/.vimrc
