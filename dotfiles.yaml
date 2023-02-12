@@ -28,7 +28,7 @@
   tasks:
     - name: Configure Starship
       ansible.builtin.template:
-        src: templates/starship.toml
+        src: etc/starship/starship.toml.template
         dest: ~/.config/starship.toml
 
     - name: Configure Fish
@@ -56,17 +56,17 @@
       when: __template__ is exists
       vars:
         __template__: "templates/{{ ansible_facts['hostname'] }}/ssh_config"
-      ansible.builtin.template:
-        src: "templates/{{ ansible_facts['hostname'] }}/ssh_config"
+      ansible.builtin.copy:
+        src: "etc/ssh/{{ ansible_facts['hostname'] }}/ssh_config"
         dest: ~/.ssh/config
         mode: '400'
 
     - name: Configure Bash Aliases
       ansible.builtin.template:
-        src: templates/bash_aliases
+        src: etc/bash/bash_aliases
         dest: ~/.bash_aliases
 
     - name: Configure Vim
       ansible.builtin.template:
-        src: templates/vimrc
+        src: etc/vim/vimrc
         dest: ~/.vimrc
