@@ -30,6 +30,10 @@
       ansible.builtin.copy:
         src: etc/fish/completions/rosa.fish
         dest: ~/.config/fish/completions/rosa.fish
+    - name: Configure Fish functions (mkcd)
+      ansible.builtin.copy:
+        src: etc/fish/functions/mkcd.fish
+        dest: ~/.config/fish/functions/mkcd.fish
 
     - name: Configure SSH
       when: __template__ is exists
