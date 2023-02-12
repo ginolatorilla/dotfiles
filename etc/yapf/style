@@ -1,0 +1,7 @@
+[style]
+based_on_style = pep8
+arithmetic_precedence_indication = true
+dedent_closing_brackets = true
+join_multiple_lines = true
+split_all_comma_separated_values = true
+column_limit = 119

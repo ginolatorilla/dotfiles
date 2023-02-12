@@ -53,3 +53,18 @@
       ansible.builtin.template:
         src: etc/vim/vimrc
         dest: ~/.vimrc
+
+    - name: Configure Flake8
+      ansible.builtin.template:
+        src: etc/flake8/flake8
+        dest: ~/.config/flake8
+
+    - name: Configure MyPy
+      ansible.builtin.template:
+        src: etc/mypy/config
+        dest: ~/.config/mypy/config
+
+    - name: Configure YAPF
+      ansible.builtin.template:
+        src: etc/yapf/style
+        dest: ~/.config/yapf/style
