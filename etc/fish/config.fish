@@ -1,5 +1,3 @@
-# {{ template_preamble }}
-
 set --global --export EDITOR (command -v vim)
 set --global --export VISUAL (command -v code)' --wait'
 

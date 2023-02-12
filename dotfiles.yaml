@@ -32,9 +32,25 @@
         dest: ~/.config/starship.toml
 
     - name: Configure Fish
-      ansible.builtin.template:
-        src: templates/config.fish
+      ansible.builtin.copy:
+        src: etc/fish/config.fish
         dest: ~/.config/fish/config.fish
+    - name: Configure Fish completions for AWS
+      ansible.builtin.copy:
+        src: etc/fish/completions/aws.fish
+        dest: ~/.config/fish/completions/aws.fish
+    - name: Configure Fish completions for Docker
+      ansible.builtin.copy:
+        src: etc/fish/completions/docker.fish
+        dest: ~/.config/fish/completions/docker.fish
+    - name: Configure Fish completions for Openshift CLI
+      ansible.builtin.copy:
+        src: etc/fish/completions/oc.fish
+        dest: ~/.config/fish/completions/oc.fish
+    - name: Configure Fish completions for ROSA CLI
+      ansible.builtin.copy:
+        src: etc/fish/completions/rosa.fish
+        dest: ~/.config/fish/completions/rosa.fish
 
     - name: Configure SSH
       when: __template__ is exists
