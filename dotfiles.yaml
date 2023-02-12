@@ -55,7 +55,7 @@
     - name: Configure SSH
       when: __template__ is exists
       vars:
-        __template__: "templates/{{ ansible_facts['hostname'] }}/ssh_config"
+        __template__: "etc/ssh/{{ ansible_facts['hostname'] }}/ssh_config"
       ansible.builtin.copy:
         src: "etc/ssh/{{ ansible_facts['hostname'] }}/ssh_config"
         dest: ~/.ssh/config
