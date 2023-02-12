@@ -1,26 +1,5 @@
 ---
-- name: Install
-  hosts: localhost
-  strategy: free
-  vars_files:
-    - vars/default.yaml
-    - "vars/{{ ansible_facts['hostname'] }}.yaml"
-  tasks:
-    - name: Install Starship (https://starship.rs/)
-      ansible.builtin.homebrew:
-        package: starship
-
-    - name: Install Fish (https://fishshell.com)
-      ansible.builtin.homebrew:
-        package: fish
-
-    - name: Install KICS (https://kics.checkmarx.net)
-      ansible.builtin.homebrew:
-        package: kics
-        state: absent
-
-
-- name: Configure'
+- name: Configure
   hosts: localhost
   vars_files:
     - vars/default.yaml
