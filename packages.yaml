@@ -18,3 +18,11 @@
       ansible.builtin.homebrew:
         package: kics
         state: absent
+
+    - name: Install Vault (https://www.vaultproject.io/)
+      ansible.builtin.homebrew:
+        package: vault
+
+    - name: Install Groff (https://www.gnu.org/software/groff/)
+      ansible.builtin.homebrew:
+        package: groff
