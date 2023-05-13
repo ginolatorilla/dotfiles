@@ -26,3 +26,18 @@
     - name: Install Groff (https://www.gnu.org/software/groff/)
       ansible.builtin.homebrew:
         package: groff
+
+    - name: Install ArgoCD Vault Plugin (https://argocd-vault-plugin.readthedocs.io)
+      ansible.builtin.homebrew:
+        package: argocd-vault-plugin
+
+    - name: Install EKS ctl (https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html)
+      ansible.builtin.homebrew:
+        package: eksctl
+
+    - name: Tap Terraform (https://developer.hashicorp.com/terraform)
+      ansible.builtin.homebrew_tap:
+        name: hashicorp/tap
+    - name: Install Terraform (https://developer.hashicorp.com/terraform)
+      ansible.builtin.homebrew:
+        package: hashicorp/tap/terraform
