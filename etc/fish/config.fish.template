@@ -14,8 +14,13 @@ if command -q keychain
     eval (keychain --agents gpg,ssh --eval)
 end
 
+if [ -f /opt/homebrew/bin/brew ]
+    /opt/homebrew/bin/brew shellenv | source
+end
+
 # Inherit aliases from Bash
 source ~/.bash_aliases
+
 starship init fish | source
 
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
