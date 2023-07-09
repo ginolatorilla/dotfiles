@@ -16,6 +16,8 @@
 
 Run `./install.sh` for syncing dotfiles.
 
+Run `./dry-run.sh` to check if `./install.sh` will override anything.
+
 Run `./pkg-install.sh` to ensure tools are installed.
 
 Inspired by: [cowboy/dotfiles](https://github.com/cowboy/dotfiles).
