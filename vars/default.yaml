@@ -1,6 +1,3 @@
-template_preamble: |-
-  This file is generated automatically. DO NOT EDIT BY HAND!
-
 starship:
   kubernetes:
     context_aliases: []

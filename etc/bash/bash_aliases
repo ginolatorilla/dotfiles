@@ -1,5 +1,3 @@
-# {{ template_preamble }}
-
 # Linux Aliases
 alias ..="cd .."
 alias ...="cd ../.."

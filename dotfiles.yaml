@@ -5,66 +5,45 @@
     - vars/default.yaml
     - "vars/{{ ansible_facts['hostname'] }}.yaml"
   tasks:
-    - name: Configure Starship
+    - name: Render Configs
+      when: item.src is exists
       ansible.builtin.template:
-        src: etc/starship/starship.toml.template
-        dest: ~/.config/starship.toml
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+        mode: "{{ item.mode | default(omit) }}"
+      loop:
+        - src: etc/starship/starship.toml.template
+          dest: ~/.config/starship.toml
 
-    - name: Configure Fish
+    - name: Copy Configs
+      when: item.src is exists
       ansible.builtin.copy:
-        src: etc/fish/config.fish
-        dest: ~/.config/fish/config.fish
-    - name: Configure Fish completions for AWS
-      ansible.builtin.copy:
-        src: etc/fish/completions/aws.fish
-        dest: ~/.config/fish/completions/aws.fish
-    - name: Configure Fish completions for Docker
-      ansible.builtin.copy:
-        src: etc/fish/completions/docker.fish
-        dest: ~/.config/fish/completions/docker.fish
-    - name: Configure Fish completions for Openshift CLI
-      ansible.builtin.copy:
-        src: etc/fish/completions/oc.fish
-        dest: ~/.config/fish/completions/oc.fish
-    - name: Configure Fish completions for ROSA CLI
-      ansible.builtin.copy:
-        src: etc/fish/completions/rosa.fish
-        dest: ~/.config/fish/completions/rosa.fish
-    - name: Configure Fish functions (mkcd)
-      ansible.builtin.copy:
-        src: etc/fish/functions/mkcd.fish
-        dest: ~/.config/fish/functions/mkcd.fish
-
-    - name: Configure SSH
-      when: __template__ is exists
-      vars:
-        __template__: "etc/ssh/{{ ansible_facts['hostname'] }}/ssh_config"
-      ansible.builtin.copy:
-        src: "etc/ssh/{{ ansible_facts['hostname'] }}/ssh_config"
-        dest: ~/.ssh/config
-        mode: '400'
-
-    - name: Configure Bash Aliases
-      ansible.builtin.template:
-        src: etc/bash/bash_aliases
-        dest: ~/.bash_aliases
-
-    - name: Configure Vim
-      ansible.builtin.template:
-        src: etc/vim/vimrc
-        dest: ~/.vimrc
-
-    - name: Configure Flake8
-      ansible.builtin.template:
-        src: etc/flake8/flake8
-        dest: ~/.config/flake8
-
-    - name: Configure MyPy
-      ansible.builtin.template:
-        src: etc/mypy/config
-        dest: ~/.config/mypy/config
-
-    - name: Configure YAPF
-      ansible.builtin.template:
-        src: etc/yapf/style
-        dest: ~/.config/yapf/style
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+        mode: "{{ item.mode | default(omit) }}"
+      loop:
+        - src: etc/fish/config.fish
+          dest: ~/.config/fish/config.fish
+        - src: etc/fish/completions/aws.fish
+          dest: ~/.config/fish/completions/aws.fish
+        - src: etc/fish/completions/docker.fish
+          dest: ~/.config/fish/completions/docker.fish
+        - src: etc/fish/completions/oc.fish
+          dest: ~/.config/fish/completions/oc.fish
+        - src: etc/fish/completions/rosa.fish
+          dest: ~/.config/fish/completions/rosa.fish
+        - src: etc/fish/functions/mkcd.fish
+          dest: ~/.config/fish/functions/mkcd.fish
+        - src: etc/bash/bash_aliases
+          dest: ~/.bash_aliases
+        - src: etc/vim/vimrc
+          dest: ~/.vimrc
+        - src: etc/flake8/flake8
+          dest: ~/.config/flake8
+        - src: etc/mypy/config
+          dest: ~/.config/mypy/config
+        - src: etc/yapf/style
+          dest: ~/.config/yapf/style
+        - src: "etc/ssh/{{ ansible_facts['hostname'] }}/ssh_config"
+          dest: ~/.ssh/config
+          mode: '400'
