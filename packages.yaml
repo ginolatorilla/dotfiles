@@ -6,38 +6,60 @@
     - vars/default.yaml
     - "vars/{{ ansible_facts['hostname'] }}.yaml"
   tasks:
-    - name: Install Starship (https://starship.rs/)
-      ansible.builtin.homebrew:
-        package: starship
-
-    - name: Install Fish (https://fishshell.com)
-      ansible.builtin.homebrew:
-        package: fish
-
-    - name: Install KICS (https://kics.checkmarx.net)
-      ansible.builtin.homebrew:
-        package: kics
-        state: absent
-
-    - name: Install Vault (https://www.vaultproject.io/)
-      ansible.builtin.homebrew:
-        package: vault
-
-    - name: Install Groff (https://www.gnu.org/software/groff/)
-      ansible.builtin.homebrew:
-        package: groff
-
-    - name: Install ArgoCD Vault Plugin (https://argocd-vault-plugin.readthedocs.io)
-      ansible.builtin.homebrew:
-        package: argocd-vault-plugin
-
-    - name: Install EKS ctl (https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html)
-      ansible.builtin.homebrew:
-        package: eksctl
-
-    - name: Tap Terraform (https://developer.hashicorp.com/terraform)
+    - name: Subscribe to Package Provider
       ansible.builtin.homebrew_tap:
-        name: hashicorp/tap
-    - name: Install Terraform (https://developer.hashicorp.com/terraform)
-      ansible.builtin.homebrew:
-        package: hashicorp/tap/terraform
+        name: "{{ item }}"
+        state: present
+      loop:
+        - hashicorp/tap
+
+    - name: Install Packages
+      ansible.builtin.package:
+        package: "{{ item }}"
+        state: present
+      loop:
+        - argocd
+        - argocd-vault-plugin
+        - eksctl
+        - fish
+        - gdbm
+        - git
+        - gnu-sed
+        - gnupg
+        - grep
+        - groff
+        - guile
+        - hashicorp/tap/terraform
+        - helm
+        - htop
+        - jq
+        - kind
+        - kubernetes-cli
+        - kubeseal
+        - kustomize
+        - libiscsi
+        - librdkafka
+        - libserdes
+        - lua@5.3
+        - mpdecimal
+        - nmap
+        - node
+        - parallel
+        - qemu
+        - rush-parallel
+        - shellcheck
+        - sqlite
+        - starship
+        - telnet
+        - tmux
+        - tree
+        - vault
+        - watch
+        - yajl
+
+    - name: Uninstall Packages
+      ansible.builtin.package:
+        package: "{{ item }}"
+        state: absent
+      loop:
+        - kics
