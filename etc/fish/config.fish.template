@@ -17,3 +17,7 @@ end
 # Inherit aliases from Bash
 source ~/.bash_aliases
 starship init fish | source
+
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+set --export --prepend PATH "{{ ansible_user_dir }}/.rd/bin"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
