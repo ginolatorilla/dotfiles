@@ -3,8 +3,6 @@ set --global --export VISUAL (command -v code)' --wait'
 
 set --global --export GPG_TTY (tty)
 
-fish_add_path $HOME/.local/bin
-
 if command -q python3
     fish_add_path (python3 -c 'import os,sysconfig;print(sysconfig.get_path("scripts"))')
     fish_add_path (python3 -c 'import os,sysconfig;print(sysconfig.get_path("scripts",f"{os.name}_user"))')
@@ -17,6 +15,8 @@ end
 if [ -f /opt/homebrew/bin/brew ]
     /opt/homebrew/bin/brew shellenv | source
 end
+
+fish_add_path $HOME/.local/bin
 
 # Inherit aliases from Bash
 source ~/.bash_aliases
