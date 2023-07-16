@@ -123,7 +123,7 @@ alias kds="kubectl describe"
 alias kg="kubectl get"
 alias kl="kubectl logs"
 alias kr="kubectl rollout"
-alias kub="kustomize build"
+alias krew="kubectl krew"
 
 # Helm Aliases
 alias h="helm"
