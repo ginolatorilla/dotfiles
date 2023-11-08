@@ -22,10 +22,12 @@
       loop:
         - argocd
         - argocd-vault-plugin
+        - bash-completion
         - eksctl
         - fish
         - gdbm
         - git
+        - glab
         - gnu-sed
         - gnupg
         - grep
@@ -49,6 +51,7 @@
         - parallel
         - qemu
         - rush-parallel
+        - rustup-init
         - shellcheck
         - sqlite
         - starship
@@ -58,6 +61,7 @@
         - vault
         - watch
         - yajl
+        - yq
 
     - name: Uninstall Packages
       tags: brew
