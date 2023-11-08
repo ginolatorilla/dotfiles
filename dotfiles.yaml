@@ -48,6 +48,8 @@
           dest: ~/.config/fish/functions/vault-kv-walk.fish
         - src: etc/bash/bash_aliases
           dest: ~/.bash_aliases
+        - src: etc/bash/bashrc
+          dest: ~/.bashrc
         - src: etc/vim/vimrc
           dest: ~/.vimrc
         - src: etc/flake8/flake8
@@ -58,4 +60,4 @@
           dest: ~/.config/yapf/style
         - src: "etc/ssh/{{ ansible_facts['hostname'] }}/ssh_config"
           dest: ~/.ssh/config
-          mode: '400'
+          mode: "400"
