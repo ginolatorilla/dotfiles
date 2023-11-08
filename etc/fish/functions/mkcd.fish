@@ -1,5 +1,3 @@
 function mkcd -d "Create a directory, then go inside it"
-    if mkdir $argv
-        cd $argv
-    end
+    mkdir $argv[1] && cd $argv[1]
 end
