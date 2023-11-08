@@ -7,7 +7,7 @@
     - "vars/{{ ansible_facts['hostname'] }}.yaml"
   tasks:
     - name: Subscribe to Package Provider
-      tags: pkg
+      tags: brew
       ansible.builtin.homebrew_tap:
         name: "{{ item }}"
         state: present
@@ -15,7 +15,7 @@
         - hashicorp/tap
 
     - name: Install Packages
-      tags: pkg
+      tags: brew
       ansible.builtin.package:
         package: "{{ item }}"
         state: present
@@ -60,7 +60,7 @@
         - yajl
 
     - name: Uninstall Packages
-      tags: pkg
+      tags: brew
       ansible.builtin.package:
         package: "{{ item }}"
         state: absent
