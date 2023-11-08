@@ -20,8 +20,17 @@ if [ -d $HOME/.local/bin ]
     fish_add_path $HOME/.local/bin
 end
 
-if [ -d ~/.krew/bin ]
+if [ -d $HOME/.krew/bin ]
     fish_add_path $HOME/.krew/bin
+end
+
+
+if [ -d $HOME/go/bin ]
+    fish_add_path $HOME/go/bin
+end
+
+if [ -d $HOME/.cargo/bin ]
+    fish_add_path $HOME/.cargo/bin
 end
 
 # Inherit aliases from Bash
