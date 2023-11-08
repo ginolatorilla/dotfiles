@@ -34,6 +34,16 @@
           dest: ~/.config/fish/completions/rosa.fish
         - src: etc/fish/functions/mkcd.fish
           dest: ~/.config/fish/functions/mkcd.fish
+        - src: etc/fish/functions/kubeconfig-set-token.fish
+          dest: ~/.config/fish/functions/kubeconfig-set-token.fish
+        - src: etc/fish/functions/k8s-node-ip.fish
+          dest: ~/.config/fish/functions/k8s-node-ip.fish
+        - src: etc/fish/functions/k8s-node-ssh.fish
+          dest: ~/.config/fish/functions/k8s-node-ssh.fish
+        - src: etc/fish/functions/k8s-groups-of.fish
+          dest: ~/.config/fish/functions/k8s-groups-of.fish
+        - src: etc/fish/functions/vault-kv-walk.fish
+          dest: ~/.config/fish/functions/vault-kv-walk.fish
         - src: etc/bash/bash_aliases
           dest: ~/.bash_aliases
         - src: etc/vim/vimrc
