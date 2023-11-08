@@ -36,7 +36,6 @@ alias rl="readlink"
 alias rm="rm -i"
 alias rs="rsync --progress"
 alias tn="telnet"
-alias tr="traceroute"
 alias w="which"
 
 # AWS Aliases
