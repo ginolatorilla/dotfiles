@@ -102,3 +102,25 @@
             - stern
             - tree
             - view-secret
+
+    - name: Install PyPi Packages
+      tags: pip
+      ansible.builtin.pip:
+        extra_args: --user
+        name:
+          - ansible
+          - ansible-lint
+          - flake8
+          - yapf
+          - pip
+          - mypy
+          - pyyaml
+          - pipenv
+
+    # Install Go: https://go.dev/doc/install
+    - name: Install Golang apps
+      tags: go
+      ansible.builtin.shell: "go install {{ item }}"
+      loop:
+        - github.com/spf13/cobra-cli@latest
+        - github.com/cosmtrek/air@latest

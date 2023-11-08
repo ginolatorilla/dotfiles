@@ -26,6 +26,8 @@
       loop:
         - src: etc/fish/completions/aws.fish
           dest: ~/.config/fish/completions/aws.fish
+        - src: etc/fish/completions/cobra-cli.fish
+          dest: ~/.config/fish/completions/cobra-cli.fish
         - src: etc/fish/completions/docker.fish
           dest: ~/.config/fish/completions/docker.fish
         - src: etc/fish/completions/oc.fish
