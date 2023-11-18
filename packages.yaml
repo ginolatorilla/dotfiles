@@ -1,14 +1,13 @@
 ---
 - name: Install
   hosts: localhost
-  strategy: free
   vars_files:
     - vars/default.yaml
     - "vars/{{ ansible_facts['hostname'] }}.yaml"
   tasks:
     - name: Subscribe to Package Provider
       tags: brew
-      ansible.builtin.homebrew_tap:
+      community.general.homebrew_tap:
         name: "{{ item }}"
         state: present
       loop:
@@ -77,7 +76,7 @@
       block:
         - name: Install Krew
           ansible.builtin.shell: |
-            set -x; cd "$(mktemp -d)" &&
+            set -eo pipefail; cd "$(mktemp -d)" &&
             OS="$(uname | tr '[:upper:]' '[:lower:]')" &&
             ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')" &&
             KREW="krew-${OS}_${ARCH}" &&
@@ -85,8 +84,11 @@
             tar zxvf "${KREW}.tar.gz" &&
             ./"${KREW}" install krew &&
             $HOME/.krew/bin/kubectl-krew update
+          register: pkg_install_krew
+          changed_when: pkg_install_krew.rc != 0
+
         - name: Install plugins with Krew
-          ansible.builtin.shell: "$HOME/.krew/bin/kubectl-krew install {{ item }}"
+          ansible.builtin.command: "$HOME/.krew/bin/kubectl-krew install {{ item }}"
           loop:
             - access-matrix
             - blame
@@ -103,6 +105,8 @@
             - stern
             - tree
             - view-secret
+          register: pkg_install_krew_plugins
+          changed_when: pkg_install_krew_plugins.rc != 0
 
     - name: Install PyPi Packages
       tags: pip
@@ -121,7 +125,9 @@
     # Install Go: https://go.dev/doc/install
     - name: Install Golang apps
       tags: go
-      ansible.builtin.shell: "go install {{ item }}"
+      ansible.builtin.command: "go install {{ item }}"
       loop:
         - github.com/spf13/cobra-cli@latest
         - github.com/cosmtrek/air@latest
+      register: pkg_install_go_apps
+      changed_when: pkg_install_go_apps.rc != 0
