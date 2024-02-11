@@ -1,73 +1,56 @@
+" Not in VSCode Vim
 " Disable compatibility with vi which can cause unexpected issues.
 set nocompatible
 
-" Enable type file detection. Vim will be able to try to detect the type of file in use.
+" File type detection
 filetype on
-
-" Enable plugins and load plugin for the detected file type.
 filetype plugin on
-
-" Load an indent file for the detected file type.
 filetype indent on
 
-" Add numbers to each line on the left-hand side.
-set number
+syntax enable
 
-" Also add relative numbers.
+" Autocompletion
+set wildmenu
+set wildmode=list:longest
+set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
+
+" Line numbers
+set number
 set relativenumber
 
-" Highlight cursor line underneath the cursor horizontally.
-"set cursorline
-
-" Set shift width to 4 spaces.
+" Indentation
 set shiftwidth=4
-
-" Set tab width to 4 columns.
 set tabstop=4
-
-" Use space characters instead of tabs.
 set expandtab
 
 " Do not save backup files.
 set nobackup
 
-" Do not let cursor scroll below or above N number of lines when scrolling.
-set scrolloff=10
+" Highlight cursor line underneath the cursor horizontally.
+set cursorline
 
 " Do not wrap lines. Allow long lines to extend as far as the line goes.
 set nowrap
 
-" While searching though a file incrementally highlight matching characters as you type.
-set incsearch
-
-" Ignore capital letters during search.
+" VSCode Vim. Disabled settings are for Neovim, or we let Vim decide.
+set autoindent
+set nogdefault
+set nohlsearch
+set history=50
 set ignorecase
-
-" Override the ignorecase option if searching for capital letters.
-" This will allow you to search specifically for capital letters.
-set smartcase
-
-" Show partial command you type in the last line of the screen.
+set incsearch
+" set inccommand replace
+set joinspaces
+let mapleader = "\\"
+set maxmapdepth=1000
+set report=2
+" set shell /bin/bash
+set scroll=0
 set showcmd
-
-" Show the mode you are on the last line.
 set showmode
-
-" Show matching words during a search.
-set showmatch
-
-" Use highlighting when doing a search.
-set hlsearch
-
-" Set the commands to save in history default number is 20.
-set history=1000
-
-" Enable auto completion menu after pressing TAB.
-set wildmenu
-
-" Make wildmenu behave like similar to Bash completion.
-set wildmode=list:longest
-
-" There are certain files that we would never want to edit with Vim.
-" Wildmenu will ignore files with these extensions.
-set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
+" set showmodename
+set smartcase
+set startofline
+set textwidth=80
+" set timeout=1000
+set whichwrap=b,s
