@@ -22,6 +22,8 @@
         - argocd
         - argocd-vault-plugin
         - bash-completion
+        - cookiecutter
+        - mysql-client
         - eksctl
         - fish
         - gdbm

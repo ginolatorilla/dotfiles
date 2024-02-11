@@ -33,6 +33,10 @@ if [ -d $HOME/.cargo/bin ]
     fish_add_path $HOME/.cargo/bin
 end
 
+if [ -d /opt/homebrew/opt/mysql-client/bin ]
+    fish_add_path /opt/homebrew/opt/mysql-client/bin
+end
+
 # Inherit aliases from Bash
 source ~/.bash_aliases
 
