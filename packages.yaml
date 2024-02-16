@@ -93,19 +93,10 @@
           ansible.builtin.command: "$HOME/.krew/bin/kubectl-krew install {{ item }}"
           loop:
             - access-matrix
-            - blame
             - ctx
-            - ktop
-            - kubescape
-            - lineage
             - neat
-            - node-shell
             - ns
-            - score
-            - sick-pods
-            - slice
             - stern
-            - tree
             - view-secret
           register: pkg_install_krew_plugins
           changed_when: pkg_install_krew_plugins.rc != 0
