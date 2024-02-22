@@ -31,6 +31,7 @@ set cursorline
 
 " Do not wrap lines. Allow long lines to extend as far as the line goes.
 set nowrap
+set statusline=%f\ %h%w%m%r%=%-14.(%l,%c%V%)\ %P
 
 " VSCode Vim. Disabled settings are for Neovim, or we let Vim decide.
 set autoindent
