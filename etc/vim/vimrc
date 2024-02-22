@@ -42,7 +42,6 @@ set ignorecase
 set incsearch
 " set inccommand replace
 set joinspaces
-let mapleader = "\\"
 set maxmapdepth=1000
 set report=2
 " set shell /bin/bash
@@ -55,3 +54,18 @@ set startofline
 set textwidth=80
 " set timeout=1000
 set whichwrap=b,s
+
+" Custom keybindings
+nnoremap <space> <nop>
+let mapleader = " "
+nmap <leader>q :q<cr>
+nmap <leader>w :w<cr>
+nmap <leader>s :split<cr>
+nmap <leader>v :vsplit<cr>
+nmap <leader>h <c-w>h<cr>
+nmap <leader>j <c-w>j<cr>
+nmap <leader>k <c-w>k<cr>
+nmap <leader>l <c-w>l<cr>
+imap jj <esc>
+vnoremap < <gv
+vnoremap > >gv
