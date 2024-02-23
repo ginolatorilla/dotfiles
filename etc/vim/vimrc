@@ -66,6 +66,10 @@ nmap <leader>h <c-w>h<cr>
 nmap <leader>j <c-w>j<cr>
 nmap <leader>k <c-w>k<cr>
 nmap <leader>l <c-w>l<cr>
+nmap <leader><left> <c-w><left><cr>
+nmap <leader><down> <c-w><down><cr>
+nmap <leader><up> <c-w><up><cr>
+nmap <leader><right> <c-w><right><cr>
 imap jj <esc>
 vnoremap < <gv
 vnoremap > >gv
