@@ -56,10 +56,7 @@ set textwidth=80
 set whichwrap=b,s
 
 " Custom keybindings
-nnoremap <space> <nop>
 let mapleader = " "
-nmap <leader>q :q<cr>
-nmap <leader>w :w<cr>
 nmap <leader>s :split<cr>
 nmap <leader>v :vsplit<cr>
 nmap <leader>h <c-w>h<cr>
