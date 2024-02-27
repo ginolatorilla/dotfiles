@@ -61,3 +61,5 @@
         - src: "etc/ssh/{{ ansible_facts['hostname'] }}/ssh_config"
           dest: ~/.ssh/config
           mode: "400"
+        - src: etc/git/config
+          dest: ~/.gitconfig

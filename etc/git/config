@@ -1,0 +1,13 @@
+[user]
+    name = Gino Latorilla
+    email = pblatorilla+github@gmail.com
+    signingkey = 20F686340836D81F
+
+[commit]
+    gpgsign = true
+
+[init]
+    defaultBranch = main
+
+[includeIf "gitdir:~/work/"]
+    path = ~/work/.gitconfig
