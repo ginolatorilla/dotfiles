@@ -9,6 +9,9 @@ filetype indent on
 
 syntax enable
 
+" Don't let Vim add final newlines so we don't get confused if we open it with other IDEs.
+set nofixeol
+
 " Autocompletion
 set wildmenu
 set wildmode=list:longest
