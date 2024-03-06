@@ -126,6 +126,7 @@ alias krew="kubectl krew"
 alias kctx="kubectl ctx"
 alias kns="kubectl ns"
 alias kvs="kubectl view-secret"
+alias kam="kubectl access-matrix"
 
 # Helm Aliases
 alias h="helm"
