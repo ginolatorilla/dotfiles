@@ -58,7 +58,7 @@
           dest: ~/.config/mypy/config
         - src: etc/yapf/style
           dest: ~/.config/yapf/style
-        - src: "etc/ssh/{{ ansible_facts['hostname'] }}/ssh_config"
+        - src: "etc/ssh/config"
           dest: ~/.ssh/config
           mode: "400"
         - src: etc/git/config
