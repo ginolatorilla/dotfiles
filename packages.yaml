@@ -51,6 +51,7 @@
         - node
         - parallel
         - qemu
+        - ruby
         - rush-parallel
         - rustup-init
         - shellcheck
