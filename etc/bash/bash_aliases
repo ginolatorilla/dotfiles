@@ -38,6 +38,10 @@ alias rs="rsync --progress"
 alias tn="telnet"
 alias w="which"
 
+# MacOS Aliases
+alias pbc="pbcopy"
+alias pbp="pbpaste"
+
 # AWS Aliases
 alias a="aws"
 alias ac="aws configure"
