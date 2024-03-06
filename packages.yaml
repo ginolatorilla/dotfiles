@@ -26,7 +26,6 @@
         - mysql-client
         - eksctl
         - fish
-        - gdbm
         - git
         - glab
         - gnu-sed
@@ -38,15 +37,10 @@
         - helm
         - htop
         - jq
-        - kind
         - kubernetes-cli
         - kubeseal
         - kustomize
-        - libiscsi
-        - librdkafka
-        - libserdes
         - lua@5.3
-        - mpdecimal
         - nmap
         - node
         - parallel
@@ -63,7 +57,6 @@
         - tree
         - vault
         - watch
-        - yajl
         - yq
 
     - name: Uninstall Packages
@@ -72,7 +65,16 @@
         package: "{{ item }}"
         state: absent
       loop:
+        - gdbm
+        - libiscsi
+        - librdkafka
+        - libserdes
         - kics
+        - kind
+        - ruby-install
+        - chruby
+        - yajl
+        - pcre
 
     - name: Install Kubernetes CLI plugins
       tags: krew
