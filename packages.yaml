@@ -126,3 +126,12 @@
         - github.com/cosmtrek/air@latest
       register: pkg_install_go_apps
       changed_when: pkg_install_go_apps.rc != 0
+
+    - name: Install Ruby gems
+      tags:
+        - ruby
+        - gem
+      community.general.gem:
+        name: "{{ item }}"
+      loop:
+        - jekyll
