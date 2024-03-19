@@ -71,7 +71,10 @@ nnoremap <leader><left> <c-w><left><cr>
 nnoremap <leader><down> <c-w><down><cr>
 nnoremap <leader><up> <c-w><up><cr>
 nnoremap <leader><right> <c-w><right><cr>
-inoremap jj <esc>
+inoremap jk <esc>
+inoremap kj <esc>
+vnoremap jk <esc>
+vnoremap kj <esc>
 vnoremap < <gv
 vnoremap > >gv
 
