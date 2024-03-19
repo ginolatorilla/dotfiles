@@ -1,12 +1,6 @@
 Include ~/work/.sshconfig
 Include ~/projects/.sshconfig
 
-Host gitlab.com
-    Hostname altssh.gitlab.com
-    Port 443
-    User git
-    PreferredAuthentications publickey
-
 Host *
     User ginolatorilla
     ForwardAgent yes
