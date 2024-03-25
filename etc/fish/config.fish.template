@@ -24,7 +24,6 @@ if [ -d $HOME/.krew/bin ]
     fish_add_path $HOME/.krew/bin
 end
 
-
 if [ -d $HOME/go/bin ]
     fish_add_path $HOME/go/bin
 end
@@ -43,6 +42,10 @@ end
 
 if [ -d $HOME/.gem/ruby/3.3.0/bin ]
     fish_add_path $HOME/.gem/ruby/3.3.0/bin
+end
+
+if [ -d $HOME/.docker/bin ]
+    fish_add_path $HOME/.docker/bin
 end
 
 # Inherit aliases from Bash
