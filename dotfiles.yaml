@@ -22,7 +22,7 @@
       ansible.builtin.copy:
         src: "{{ item.src }}"
         dest: "{{ item.dest }}"
-        mode: "{{ item.mode | default(omit) }}"
+        mode: "0644"
       loop:
         - src: etc/fish/completions/aws.fish
           dest: ~/.config/fish/completions/aws.fish
