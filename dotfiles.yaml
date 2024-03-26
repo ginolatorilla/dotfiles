@@ -63,3 +63,5 @@
           mode: "400"
         - src: etc/git/config
           dest: ~/.gitconfig
+        - src: etc/tmux/tmux.conf
+          dest: ~/.tmux.conf
