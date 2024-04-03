@@ -12,8 +12,6 @@
         dest: "{{ item.dest }}"
         mode: "{{ item.mode | default(omit) }}"
       loop:
-        - src: etc/starship/starship.toml.template
-          dest: ~/.config/starship.toml
         - src: etc/fish/config.fish.template
           dest: ~/.config/fish/config.fish
 
@@ -24,6 +22,8 @@
         dest: "{{ item.dest }}"
         mode: "0644"
       loop:
+        - src: etc/starship/starship.toml
+          dest: ~/.config/starship.toml
         - src: etc/fish/completions/aws.fish
           dest: ~/.config/fish/completions/aws.fish
         - src: etc/fish/completions/cobra-cli.fish

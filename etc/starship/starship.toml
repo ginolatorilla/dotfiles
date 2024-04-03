@@ -1,4 +1,4 @@
-format="""
+format = """
 [┌─\
 
 \\[\
@@ -104,12 +104,6 @@ $status\
 
 ──$character]()"""
 
-palette = 'custom'
-
-[palettes.custom]
-amazon =  '#edae49'
-kubernetes = '#1565c0'
-
 # -----------------------------------------------------------------------------
 # LEFT LANE
 #
@@ -202,7 +196,7 @@ symbol = "󰠳 "
 format = '[$symbol($version)]($style)'
 
 [package]
-disabled  = false
+disabled = false
 format = '[ $symbol($version)]($style)'
 
 # -----------------------------------------------------------------------------
@@ -212,18 +206,12 @@ format = '[ $symbol($version)]($style)'
 [kubernetes]
 disabled = false
 format = '[$symbol$context(/$namespace)]($style) '
-style = 'kubernetes'
-
-[kubernetes.context_aliases]
-{{ starship.kubernetes.context_aliases | join('\n') }}
 
 [aws]
 format = '[$symbol($profile)(@$region)(\[$duration\])]($style) '
-symbol = " "
-style = "amazon"
 
 [localip]
-format = '[󰖩 $localipv4]($style)'
+format = '[$localipv4]($style)'
 ssh_only = false
 disabled = false
 
