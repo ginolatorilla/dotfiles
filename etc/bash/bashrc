@@ -123,10 +123,6 @@ export VISUAL='/usr/bin/code --wait'
 
 # "Complex aliases"
 alias mkcd='_(){ mkdir -p "$*"; cd "$*"; }; _'
-### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
-export PATH="/Users/gino.latorilla/.rd/bin:$PATH"
-### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
-. "$HOME/.cargo/env"
 
 if command -v argocd >/dev/null; then
     . <(argocd completion bash)
