@@ -3,7 +3,6 @@
   hosts: localhost
   vars_files:
     - vars/default.yaml
-    - "vars/{{ ansible_facts['hostname'] }}.yaml"
   tasks:
     - name: Subscribe to Package Provider
       tags: brew
@@ -16,65 +15,79 @@
     - name: Install Packages
       tags: brew
       ansible.builtin.package:
-        package: "{{ item }}"
         state: present
-      loop:
-        - argocd
-        - argocd-vault-plugin
-        - bash-completion
-        - cookiecutter
-        - mysql-client
-        - eksctl
-        - fish
-        - git
-        - glab
-        - gnu-sed
-        - gnupg
-        - grep
-        - groff
-        - guile
-        - hashicorp/tap/terraform
-        - helm
-        - htop
-        - jq
-        - kubernetes-cli
-        - kubeseal
-        - kustomize
-        - lua@5.3
-        - nmap
-        - node
-        - parallel
-        - qemu
-        - ruby
-        - rush-parallel
-        - rustup-init
-        - shellcheck
-        - sqlite
-        - starship
-        - telnet
-        - terraform-docs
-        - tmux
-        - tree
-        - vault
-        - watch
-        - yq
+        package:
+          - argocd
+          - argocd-vault-plugin
+          - bash-completion
+          - cookiecutter
+          - mysql-client
+          - eksctl
+          - fish
+          - docker
+          - docker-credential-helper
+          - git
+          - glab
+          - gnu-sed
+          - gnupg
+          - grep
+          - groff
+          - guile
+          - hashicorp/tap/terraform
+          - helm
+          - htop
+          - jq
+          - kubernetes-cli
+          - kubeseal
+          - kustomize
+          - lua@5.3
+          - nmap
+          - node
+          - parallel
+          - qemu
+          - ruby
+          - rush-parallel
+          - rustup-init
+          - shellcheck
+          - sqlite
+          - starship
+          - telnet
+          - terraform-docs
+          - tmux
+          - tree
+          - vault
+          - watch
+          - yq
+          - skaffold
+          - python@3.12
+          - python
 
     - name: Uninstall Packages
       tags: brew
       ansible.builtin.package:
-        package: "{{ item }}"
         state: absent
+        package:
+          - gdbm
+          - libiscsi
+          - librdkafka
+          - libserdes
+          - kics
+          - kind
+          - ruby-install
+          - chruby
+          - yajl
+          - pcre
+
+    # Install Go: https://go.dev/doc/install
+    - name: Install Golang apps
+      tags: go
+      ansible.builtin.command: "go install {{ item }}"
       loop:
-        - gdbm
-        - libiscsi
-        - librdkafka
-        - libserdes
-        - kics
-        - kind
-        - ruby-install
-        - chruby
-        - yajl
-        - pcre
+        - github.com/spf13/cobra-cli@latest
+        - github.com/cosmtrek/air@latest
+        - github.com/corneliusweig/rakkess@latest
+      register: pkg_install_go_apps
+      changed_when: pkg_install_go_apps.rc != 0
 
     - name: Install Kubernetes CLI plugins
       tags: krew
@@ -101,8 +114,19 @@
             - ns
             - stern
             - view-secret
+            - kubescape
           register: pkg_install_krew_plugins
           changed_when: pkg_install_krew_plugins.rc != 0
+
+        - name: Workaround for access-matrix
+          block:
+            - name: Delete original access-matrix binary
+              ansible.builtin.file:
+                path: ~/.krew/store/access-matrix/v0.5.0/access-matrix-arm64-darwin
+                state: link
+                force: true
+                follow: false
+                src: ~/go/bin/rakkess
 
     - name: Install PyPi Packages
       tags: pip
@@ -118,16 +142,6 @@
           - pyyaml
           - pipenv
           - certifi
-
-    # Install Go: https://go.dev/doc/install
-    - name: Install Golang apps
-      tags: go
-      ansible.builtin.command: "go install {{ item }}"
-      loop:
-        - github.com/spf13/cobra-cli@latest
-        - github.com/cosmtrek/air@latest
-      register: pkg_install_go_apps
-      changed_when: pkg_install_go_apps.rc != 0
 
     - name: Install Ruby gems
       tags:
