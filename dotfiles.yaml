@@ -5,6 +5,15 @@
     - vars/default.yaml
     - "vars/{{ ansible_facts['hostname'] }}.yaml"
   tasks:
+    - name: Ensure Directories
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+        mode: "0755"
+      loop:
+        - ~/.config/mypy
+        - ~/.config/yapf
+
     - name: Render Configs
       when: item.src is exists
       ansible.builtin.template:
