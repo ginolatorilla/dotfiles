@@ -21,7 +21,6 @@
 # Icon must end with two \r
 Icon
 
-
 # Thumbnails
 ._*
 
@@ -44,3 +43,4 @@ Temporary Items
 # Added by me
 **/GPH00093m/*
 vars/GPH00093m.yaml
+/.venv
