@@ -128,21 +128,6 @@
                 follow: false
                 src: ~/go/bin/rakkess
 
-    - name: Install PyPi Packages
-      tags: pip
-      ansible.builtin.pip:
-        extra_args: --user
-        name:
-          - ansible
-          - ansible-lint
-          - flake8
-          - yapf
-          - pip
-          - mypy
-          - pyyaml
-          - pipenv
-          - certifi
-
     - name: Install Ruby gems
       tags:
         - ruby
