@@ -136,3 +136,10 @@
         name: "{{ item }}"
       loop:
         - jekyll
+
+    - name: Install Rust
+      tags:
+        - rust
+      ansible.builtin.command:
+        cmd: rustup-init
+        creates: ~/.cargo/bin
