@@ -184,7 +184,7 @@ symbol = " "
 format = '[$symbol($version)]($style)'
 
 [python]
-symbol = " "
+symbol = " "
 format = '[$symbol($version)(@$virtualenv)]($style)'
 
 [terraform]
