@@ -12,20 +12,19 @@
       loop:
         - hashicorp/tap
 
-    - name: Install Packages
+    - name: Install Homebrew Formulae
       tags: brew
-      ansible.builtin.package:
+      community.general.homebrew:
         state: present
         package:
           - argocd
           - argocd-vault-plugin
           - bash-completion
           - cookiecutter
-          - mysql-client
+          - docker-completion
+          - docker-credential-helper
           - eksctl
           - fish
-          - docker
-          - docker-credential-helper
           - git
           - glab
           - gnu-sed
@@ -38,17 +37,21 @@
           - htop
           - jq
           - kubernetes-cli
-          - kubeseal
           - kustomize
+          - lima
           - lua@5.3
+          - mysql-client
           - nmap
           - node
           - parallel
+          - python
+          - python@3.12
           - qemu
           - ruby
           - rush-parallel
           - rustup-init
           - shellcheck
+          - skaffold
           - sqlite
           - starship
           - telnet
@@ -58,11 +61,23 @@
           - vault
           - watch
           - yq
-          - skaffold
-          - python@3.12
-          - python
 
-    - name: Uninstall Packages
+    - name: Install Homebrew Formulae (force)
+      tags: brew
+      community.general.homebrew:
+        force_formula: true
+        package:
+          - docker
+
+    - name: Install Homebrew Casks
+      tags: brew
+      community.general.homebrew_cask:
+        name: "{{ item }}"
+      loop:
+        - font-fira-code
+        - font-fira-code-nerd-font
+
+    - name: Uninstall Homebrew Formulae
       tags: brew
       ansible.builtin.package:
         state: absent
@@ -77,6 +92,9 @@
           - chruby
           - yajl
           - pcre
+          - dnsmasq
+          - k3d
+          - kubeseal
 
     # Install Go: https://go.dev/doc/install
     - name: Install Golang apps
