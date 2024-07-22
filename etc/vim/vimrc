@@ -108,6 +108,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 
 call plug#end()
 
+let g:camelcasemotion_key = '<leader>'
 nnoremap <leader>N :NERDTreeToggle<cr>
 nnoremap <leader>P :FZF -i<cr>
 nnoremap <leader>R :source $MYVIMRC<cr>
