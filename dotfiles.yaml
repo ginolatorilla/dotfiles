@@ -14,16 +14,6 @@
         - ~/.config/mypy
         - ~/.config/yapf
 
-    - name: Render Configs
-      when: item.src is exists
-      ansible.builtin.template:
-        src: "{{ item.src }}"
-        dest: "{{ item.dest }}"
-        mode: "{{ item.mode | default(omit) }}"
-      loop:
-        - src: etc/fish/config.fish.template
-          dest: ~/.config/fish/config.fish
-
     - name: Copy Configs
       when: item.src is exists
       ansible.builtin.copy:
@@ -33,6 +23,8 @@
       loop:
         - src: etc/starship/starship.toml
           dest: ~/.config/starship.toml
+        - src: etc/fish/config.fish
+          dest: ~/.config/fish/config.fish
         - src: etc/fish/completions/aws.fish
           dest: ~/.config/fish/completions/aws.fish
         - src: etc/fish/completions/cobra-cli.fish
