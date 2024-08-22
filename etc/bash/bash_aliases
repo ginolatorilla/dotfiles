@@ -39,6 +39,7 @@ alias ac="aws configure"
 alias asl="aws sso login"
 alias s3="aws s3"
 alias ec2="aws ec2"
+alias iam="aws iam"
 
 # Git Aliases
 alias g="git"
