@@ -9,8 +9,7 @@
       community.general.homebrew_tap:
         name: "{{ item }}"
         state: present
-      loop:
-        - hashicorp/tap
+      loop: []
 
     - name: Install Homebrew Formulae
       tags: brew
@@ -32,7 +31,6 @@
           - grep
           - groff
           - guile
-          - hashicorp/tap/terraform
           - helm
           - htop
           - jq
@@ -58,7 +56,6 @@
           - terraform-docs
           - tmux
           - tree
-          - vault
           - watch
           - yq
 
