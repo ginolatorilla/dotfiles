@@ -144,3 +144,4 @@ alias ag="ansible-galaxy"
 
 # Functional Aliases
 alias avp="argocd-vault-plugin generate"
+alias r="replicated"

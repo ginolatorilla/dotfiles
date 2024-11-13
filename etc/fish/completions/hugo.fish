@@ -1,0 +1,1 @@
+hugo completion fish | source

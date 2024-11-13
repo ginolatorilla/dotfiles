@@ -58,6 +58,8 @@
           - tree
           - watch
           - yq
+          - replicatedhq/replicated/cli
+          - hugo
 
     - name: Install Homebrew Formulae (force)
       tags: brew
