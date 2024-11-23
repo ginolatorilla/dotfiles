@@ -121,7 +121,8 @@ alias kns="kubectl ns"
 alias kv="kubectl view-secret"
 alias kam="kubectl access-matrix"
 alias kst="kubectl stern"
-alias kp="kubectl patch"
+alias kpa="kubectl patch"
+alias kpf="kubectl port-forward"
 
 # Helm Aliases
 alias h="helm"
