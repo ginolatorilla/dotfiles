@@ -60,6 +60,9 @@
           - yq
           - replicatedhq/replicated/cli
           - hugo
+          - gh
+          - pinentry
+          - pinentry-mac
 
     - name: Install Homebrew Formulae (force)
       tags: brew
@@ -101,8 +104,9 @@
       ansible.builtin.command: "go install {{ item }}"
       loop:
         - github.com/spf13/cobra-cli@latest
-        - github.com/cosmtrek/air@latest
+        - github.com/air-verse/air@latest
         - github.com/corneliusweig/rakkess@latest
+        - github.com/mattn/goreman@latest
       register: pkg_install_go_apps
       changed_when: pkg_install_go_apps.rc != 0
 
