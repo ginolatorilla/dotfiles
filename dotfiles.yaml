@@ -66,3 +66,5 @@
           dest: ~/.gitconfig
         - src: etc/tmux/tmux.conf
           dest: ~/.tmux.conf
+        - src: etc/gnupg/gpg-agent.conf
+          dest: ~/.gnupg/gpg-agent.conf
