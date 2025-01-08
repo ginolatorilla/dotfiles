@@ -123,6 +123,7 @@ alias kam="kubectl access-matrix"
 alias kst="kubectl stern"
 alias kpa="kubectl patch"
 alias kpf="kubectl port-forward"
+alias kots="kubectl kots"
 
 # Helm Aliases
 alias h="helm"
