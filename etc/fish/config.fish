@@ -36,12 +36,12 @@ if [ -d /opt/homebrew/opt/mysql-client/bin ]
     fish_add_path /opt/homebrew/opt/mysql-client/bin
 end
 
-if [ -d /opt/homebrew/Cellar/ruby/3.3.0/bin/ ]
-    fish_add_path /opt/homebrew/Cellar/ruby/3.3.0/bin/
+if [ -d /opt/homebrew/Cellar/ruby/3.3.6/bin/ ]
+    fish_add_path /opt/homebrew/Cellar/ruby/3.3.6/bin/
 end
 
-if [ -d $HOME/.gem/ruby/3.3.0/bin ]
-    fish_add_path $HOME/.gem/ruby/3.3.0/bin
+if [ -d $HOME/.gem/ruby/3.3.6/bin ]
+    fish_add_path $HOME/.gem/ruby/3.3.6/bin
 end
 
 if [ -d $HOME/.docker/bin ]
