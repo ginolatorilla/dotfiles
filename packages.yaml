@@ -63,6 +63,7 @@
           - gh
           - pinentry
           - pinentry-mac
+          - maven
 
     - name: Install Homebrew Formulae (force)
       tags: brew
@@ -107,6 +108,8 @@
         - github.com/air-verse/air@latest
         - github.com/corneliusweig/rakkess@latest
         - github.com/mattn/goreman@latest
+        - golang.org/x/tools/cmd/godoc@latest
+        - golang.org/x/pkgsite/cmd/pkgsite@latest
       register: pkg_install_go_apps
       changed_when: pkg_install_go_apps.rc != 0
 
