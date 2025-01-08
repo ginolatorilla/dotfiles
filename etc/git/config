@@ -9,5 +9,8 @@
 [init]
     defaultBranch = main
 
+[core]
+    sshCommand = ssh -i ~/.ssh/id_rsa.ginolatorilla
+
 [includeIf "gitdir:~/work/"]
     path = ~/work/.gitconfig
