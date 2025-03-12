@@ -1,6 +1,9 @@
 Include ~/work/.sshconfig
 Include ~/projects/.sshconfig
 
+Host *.compute.amazonaws.com
+    User ec2-user
+
 Host *
     User ginolatorilla
     ForwardAgent yes
