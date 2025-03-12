@@ -28,6 +28,7 @@ alias rm="rm -i"
 alias rs="rsync --progress"
 alias te="telnet"
 alias w="which"
+alias txvf="tar xvf"
 
 # MacOS Aliases
 alias pbc="pbcopy"
