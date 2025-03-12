@@ -1,4 +1,3 @@
----
 - name: Install
   hosts: localhost
   vars_files:
@@ -110,6 +109,7 @@
         - github.com/mattn/goreman@latest
         - golang.org/x/tools/cmd/godoc@latest
         - golang.org/x/pkgsite/cmd/pkgsite@latest
+        - github.com/cloudflare/cfssl/cmd/...@latest
       register: pkg_install_go_apps
       changed_when: pkg_install_go_apps.rc != 0
 
@@ -139,6 +139,22 @@
             - stern
             - view-secret
             - kubescape
+            - preflight
+            - support-bundle
+            # Evaluation
+            - sniff
+            - resource-capacity
+            - score
+            - tree
+            - graph
+            - explore
+            - fuzzy
+            - grep
+            - klock
+            - ktop
+            - rbac-tool
+            - status
+            - warp
           register: pkg_install_krew_plugins
           changed_when: pkg_install_krew_plugins.rc != 0
 
