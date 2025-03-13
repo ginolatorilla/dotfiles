@@ -1,4 +1,3 @@
----
 - name: Configure
   hosts: localhost
   vars_files:
@@ -39,10 +38,6 @@
           dest: ~/.config/fish/functions/mkcd.fish
         - src: etc/fish/functions/kubeconfig-set-token.fish
           dest: ~/.config/fish/functions/kubeconfig-set-token.fish
-        - src: etc/fish/functions/k8s-node-ip.fish
-          dest: ~/.config/fish/functions/k8s-node-ip.fish
-        - src: etc/fish/functions/k8s-node-ssh.fish
-          dest: ~/.config/fish/functions/k8s-node-ssh.fish
         - src: etc/fish/functions/k8s-groups-of.fish
           dest: ~/.config/fish/functions/k8s-groups-of.fish
         - src: etc/fish/functions/vault-kv-walk.fish
@@ -68,3 +63,11 @@
           dest: ~/.tmux.conf
         - src: etc/gnupg/gpg-agent.conf
           dest: ~/.gnupg/gpg-agent.conf
+
+    - name: Delete Configs
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: absent
+      loop:
+        - ~/.config/fish/functions/k8s-node-ip.fish
+        - ~/.config/fish/functions/k8s-node-ssh.fish
