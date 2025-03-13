@@ -18,7 +18,6 @@
           - argocd
           - argocd-vault-plugin
           - bash-completion
-          - cookiecutter
           - docker-completion
           - docker-credential-helper
           - eksctl
@@ -43,12 +42,10 @@
           - parallel
           - python
           - python@3.12
-          - qemu
           - ruby
           - rush-parallel
           - rustup-init
           - shellcheck
-          - skaffold
           - sqlite
           - starship
           - telnet
@@ -97,6 +94,9 @@
           - dnsmasq
           - k3d
           - kubeseal
+          - cookiecutter
+          - qemu
+          - skaffold
 
     # Install Go: https://go.dev/doc/install
     - name: Install Golang apps
@@ -112,6 +112,15 @@
         - github.com/cloudflare/cfssl/cmd/...@latest
       register: pkg_install_go_apps
       changed_when: pkg_install_go_apps.rc != 0
+
+    - name: Uninstall Golang apps
+      tags: go
+      ansible.builtin.command: "rm -f $(go env GOPATH)/bin/{{ item }}"
+      loop:
+        - goreman
+        - godoc
+      register: pkg_uninstall_go_apps
+      changed_when: pkg_uninstall_go_apps.rc != 0
 
     - name: Install Kubernetes CLI plugins
       tags: krew
@@ -134,29 +143,33 @@
           loop:
             - access-matrix
             - ctx
-            - neat
-            - ns
-            - stern
-            - view-secret
-            - kubescape
-            - preflight
-            - support-bundle
-            # Evaluation
-            - sniff
-            - resource-capacity
-            - score
-            - tree
-            - graph
             - explore
             - fuzzy
-            - grep
+            - graph
             - klock
             - ktop
+            - kubescape
+            - neat
+            - ns
+            - preflight
             - rbac-tool
+            - resource-capacity
+            - score
+            - sniff
             - status
-            - warp
+            - stern
+            - support-bundle
+            - tree
+            - view-secret
           register: pkg_install_krew_plugins
           changed_when: pkg_install_krew_plugins.rc != 0
+
+        - name: Uninstall plugins with Krew
+          ansible.builtin.command: "$HOME/.krew/bin/kubectl-krew uninstall {{ item }}"
+          loop:
+            - grep
+            - warp
+          ignore_errors: yes
 
         - name: Workaround for access-matrix
           block:
@@ -181,5 +194,5 @@
       tags:
         - rust
       ansible.builtin.command:
-        cmd: rustup-init
+        cmd: rustup-init -y
         creates: ~/.cargo/bin
