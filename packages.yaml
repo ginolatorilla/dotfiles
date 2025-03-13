@@ -110,6 +110,7 @@
         - golang.org/x/tools/cmd/godoc@latest
         - golang.org/x/pkgsite/cmd/pkgsite@latest
         - github.com/cloudflare/cfssl/cmd/...@latest
+        - github.com/jstemmer/go-junit-report@latest
       register: pkg_install_go_apps
       changed_when: pkg_install_go_apps.rc != 0
 
