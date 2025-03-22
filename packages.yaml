@@ -1,3 +1,4 @@
+---
 - name: Install
   hosts: localhost
   vars_files:
@@ -16,7 +17,6 @@
         state: present
         package:
           - argocd
-          - argocd-vault-plugin
           - bash-completion
           - docker-completion
           - docker-credential-helper
@@ -54,12 +54,10 @@
           - tree
           - watch
           - yq
-          - replicatedhq/replicated/cli
           - hugo
           - gh
           - pinentry
           - pinentry-mac
-          - maven
 
     - name: Install Homebrew Formulae (force)
       tags: brew
@@ -97,6 +95,9 @@
           - cookiecutter
           - qemu
           - skaffold
+          - argocd-vault-plugin
+          - replicatedhq/replicated/cli
+          - maven
 
     # Install Go: https://go.dev/doc/install
     - name: Install Golang apps
@@ -153,14 +154,12 @@
             - kubescape
             - neat
             - ns
-            - preflight
             - rbac-tool
             - resource-capacity
             - score
             - sniff
             - status
             - stern
-            - support-bundle
             - tree
             - view-secret
           register: pkg_install_krew_plugins
@@ -171,6 +170,8 @@
           loop:
             - grep
             - warp
+            - preflight
+            - support-bundle
           ignore_errors: yes
 
         - name: Workaround for access-matrix
