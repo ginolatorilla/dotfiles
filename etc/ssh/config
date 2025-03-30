@@ -10,4 +10,5 @@ Host *
     AddKeysToAgent yes
     UseKeychain yes
     IdentityFile ~/.ssh/id_rsa.ginolatorilla
+    IdentitiesOnly yes
     ServerAliveInterval 60
