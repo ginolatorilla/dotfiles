@@ -1,4 +1,4 @@
-# Put Homebrew on PATH first, because the next lines use tools from it.
+# Put Homebrew on PATH first, because the next lines use Packages from it.
 # Homebrew is in /opt/homebrew on macOS and in /home/linuxbrew/.linuxbrew on Linux.
 for brew_prefix in /opt/homebrew /home/linuxbrew/.linuxbrew
     if test -x $brew_prefix/bin/brew
@@ -11,7 +11,7 @@ set --erase brew_prefix
 set --global --export EDITOR (command -v nvim)
 set --global --export GPG_TTY (tty)
 
-# Keep the k9s and lazygit configs in ~/.config on macOS too.
+# k9s and lazygit read their Dotfiles from ~/.config on macOS too.
 set --global --export K9S_CONFIG_DIR $HOME/.config/k9s
 set --global --export LG_CONFIG_FILE $HOME/.config/lazygit/config.yml
 

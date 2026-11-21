@@ -109,7 +109,7 @@ The command runs `chezmoi status` and `brew bundle check --global
 --no-upgrade --verbose`. It exits with status 1 if a Dotfile differs from
 the repo or a Package is missing. Outdated Packages are not drift.
 
-Some tools replace their config file instead of editing it. The symlink then
+Some Packages replace their Dotfile instead of editing it. The symlink then
 becomes a regular file, and `chezmoi status` shows it.
 
 ## Adding a Package

@@ -5,7 +5,7 @@
 
 set -euo pipefail
 
-readonly DEFAULT_DIR="$HOME/github.com/ginolatorilla/dotfiles"
+readonly DEFAULT_CHECKOUT="$HOME/github.com/ginolatorilla/dotfiles"
 readonly DOTFILES_REPO="${DOTFILES_REPO:-https://github.com/ginolatorilla/dotfiles.git}"
 readonly DOTFILES_BRANCH="${DOTFILES_BRANCH:-main}"
 readonly BREW_PREFIXES=(/opt/homebrew /home/linuxbrew/.linuxbrew)
@@ -153,7 +153,7 @@ set_login_shell() {
 
 # Read-only. Print the Dotfiles that differ from the checkout and the
 # Packages that are missing. Outdated Packages are not drift.
-check() {
+check_drift() {
     load_brew || die "Homebrew is not installed. Run install.sh first."
     local chezmoi status drift=0
     chezmoi="$(brew --prefix)/bin/chezmoi"
@@ -193,10 +193,10 @@ main() {
         shift
     done
 
-    DOTFILES_DIR="${DOTFILES_DIR:-$(script_checkout || printf '%s\n' "$DEFAULT_DIR")}"
+    DOTFILES_DIR="${DOTFILES_DIR:-$(script_checkout || printf '%s\n' "$DEFAULT_CHECKOUT")}"
 
     if [ "$mode" = check ]; then
-        check
+        check_drift
         return
     fi
 

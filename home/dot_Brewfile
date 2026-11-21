@@ -24,7 +24,7 @@
 # Adding a Package
 # ----------------
 # Put the line in the group it belongs to, with a one-line comment above it
-# that describes the tool. Put casks and macOS-only formulae under
+# that describes the Package. Put casks and macOS-only formulae under
 # `if OS.mac?`, Linux-only entries under `if OS.linux?` and winget entries
 # under `if OS.wsl?`. Put Private Packages in ~/.Brewfile.local, which is not
 # tracked (see docs/adr/0003).
@@ -38,7 +38,7 @@ tap "yvgude/lean-ctx"
 tap "huseyinbabal/tap", trusted: true
 
 # ---------------------------------------------------------------------------
-# Modern CLI replacements (newer tools that replace classic Unix commands)
+# Modern CLI replacements (newer Packages that replace classic Unix commands)
 # ---------------------------------------------------------------------------
 # A cat clone with syntax highlighting and Git integration (replaces cat)
 brew "bat"
@@ -118,7 +118,7 @@ brew "rush-parallel"
 brew "chezmoi"
 
 # ---------------------------------------------------------------------------
-# GNU userland (GNU versions of standard tools, used alongside macOS ones)
+# GNU userland (GNU versions of standard commands, used alongside macOS ones)
 # ---------------------------------------------------------------------------
 # GNU implementation of the famous stream editor
 brew "gnu-sed"
@@ -160,7 +160,7 @@ brew "mise"
 brew "guile"
 
 # ---------------------------------------------------------------------------
-# Developer tools
+# Development
 # ---------------------------------------------------------------------------
 # Distributed revision control system
 brew "git"
@@ -252,7 +252,7 @@ brew "socat"
 brew "mysql-client"
 
 # ---------------------------------------------------------------------------
-# Vendor and third-party tools
+# Vendor and third-party Packages
 # ---------------------------------------------------------------------------
 # Package Replicated applications and manage releases, channels, customers and entitlements using a command-line interface.
 brew "replicatedhq/replicated/cli", trusted: true
@@ -270,7 +270,7 @@ if OS.mac?
 
   cask "font-fira-code"
   cask "font-fira-code-nerd-font"
-  # The font in the Ghostty config
+  # The font in the Ghostty Dotfile
   cask "font-comic-shanns-mono-nerd-font"
   # Terminal emulator that uses platform-native UI and GPU acceleration
   cask "ghostty"
@@ -280,7 +280,7 @@ end
 # Linux only
 # ---------------------------------------------------------------------------
 if OS.linux?
-  # Starts one ssh agent and one gpg agent for all shells (config.fish runs it)
+  # Starts one ssh-agent for all shells (config.fish runs it)
   brew "keychain"
 end
 
@@ -294,7 +294,7 @@ if OS.wsl?
 end
 
 # ---------------------------------------------------------------------------
-# Go tools (go install)
+# Go packages (go install)
 # ---------------------------------------------------------------------------
 go "github.com/air-verse/air"
 go "github.com/bobg/modver/v2/cmd/modver"
