@@ -6,7 +6,6 @@ This repo sets up the home directory of each Machine. chezmoi places the Dotfile
 
 - `docs/CONTEXT.md`: the glossary. Use its terms (Machine, Platform, Checkout, Dotfile, Package, Local override, Setup, Drift, Private, Secret) in code, commits and docs.
 - `docs/adr/`: the decisions about Platform support, the package manager and Private items. Read the ADRs before you change these areas.
-- `plan.md`: if this file exists, a migration is in progress. Follow its procedure. Keep `plan.md` untracked.
 
 ## Public repo
 
