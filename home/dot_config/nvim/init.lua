@@ -40,6 +40,8 @@ map('t', '<M-j>', [[<c-\><c-n><leader>t]], { remap = true })
 map('n', '<M-/>', 'gcc', { remap = true, desc = 'Cmd+/ toggle comment' })
 map('i', '<M-/>', '<esc>gcca', { remap = true })
 map('v', '<M-/>', 'gc', { remap = true })
+map(both, '<M-Left>', '<S-Left>', { desc = 'Option+Left word back' })
+map(both, '<M-Right>', '<S-Right>', { desc = 'Option+Right word forward' })
 
 -- From ~/.vimrc
 map('n', '<leader>s', '<cmd>split<cr>')
@@ -52,8 +54,6 @@ map('n', '<leader><left>', '<c-w><left>')
 map('n', '<leader><down>', '<c-w><down>')
 map('n', '<leader><up>', '<c-w><up>')
 map('n', '<leader><right>', '<c-w><right>')
-map({ 'i', 'v' }, 'jk', '<esc>')
-map({ 'i', 'v' }, 'kj', '<esc>')
 map('v', '<', '<gv')
 map('v', '>', '>gv')
 
@@ -98,6 +98,9 @@ addplugin("https://github.com/inkarkat/vim-ReplaceWithRegister")
 -- disable LSP overlaps with replaceWithRegister
 vim.keymap.del("n", "gra")
 vim.keymap.del("n", "gri")
+vim.keymap.del("n", "grn")
+vim.keymap.del("n", "grt")
+vim.keymap.del("x", "gra")
 
 addplugin("https://github.com/nvim-treesitter/nvim-treesitter")
 local lang = { 'bash', 'csv', 'diff', 'dockerfile', 'fish', 'git_config', 'git_rebase', 'gitattributes', 'gitcommit',
@@ -265,8 +268,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
     local m = vim.keymap.set
     m('n', 'gd', vim.lsp.buf.definition, o('Go to definition'))
     m('n', 'gD', function() t.lsp_definitions({ jump_type = 'never' }) end, o('Peek definition'))
-    m('n', 'gi', vim.lsp.buf.implementation, o('Go to implementation'))
-    m('n', 'g]', vim.lsp.buf.implementation, o('Go to implementation'))
     m('n', 'gI', function() t.lsp_implementations({ jump_type = 'never' }) end, o('Peek implementations'))
     m('n', 'gy', vim.lsp.buf.type_definition, o('Go to type definition'))
     m('n', 'gR', function() t.lsp_references({ jump_type = 'never' }) end, o('References (list + preview)'))
