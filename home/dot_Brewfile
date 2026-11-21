@@ -212,6 +212,8 @@ brew "lima"
 # ---------------------------------------------------------------------------
 # Kubernetes command-line interface
 brew "kubernetes-cli"
+# Package manager for kubectl plugins (installs the krew entries below)
+brew "krew"
 # Kubernetes package manager
 brew "helm"
 # GitOps Continuous Delivery for Kubernetes
