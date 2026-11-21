@@ -2,9 +2,11 @@
 
 This file lists the keys of Ghostty, Zellij, nvim and fish. Use it to find the key for an action and to see which layer reads the key.
 
+The Cmd shortcuts and the Option keys are for macOS with Ghostty. On WSL, the terminal is not Ghostty, so these keys can be different. The Zellij and nvim keys are the same on both Platforms.
+
 ## Key path
 
-A key press goes through the layers in this order. Zellij binds only Ctrl+Space. Zellij sends all other keys to the pane, so that nvim and fish get all Alt and Ctrl keys.
+A key press goes through the layers in this order. In Normal mode, Zellij binds only Ctrl+Space. Zellij sends all other keys to the pane, so that nvim and fish get all Alt and Ctrl keys.
 
 ```mermaid
 flowchart LR
@@ -14,33 +16,35 @@ flowchart LR
     G -->|other keys| Z
     Z -->|Ctrl+Space| P[Zellij prefix table]
     Z -->|all other keys| F[fish or nvim in the pane]
+    F -->|fish keys| FI[Alt+Left, Alt+Right, Alt+s, Alt+p, Ctrl+Space, Ctrl+n]
+    F -->|nvim keys| NV[Alt+key maps, Ctrl+o, Ctrl+h, Ctrl+n, Ctrl+p, leader keys]
 ```
 
 ## Cmd shortcuts
 
-Ghostty sends each Cmd shortcut as Alt+key (ESC and the key). nvim maps the `<M-key>` form. The `<M-key>` keys work in normal, insert and visual mode, unless the table says other.
+Ghostty sends each Cmd shortcut as Alt+key (ESC and the key). nvim maps the `<M-key>` form. Each map works in normal, insert and visual mode. Only the exceptions are in the table.
 
-| Cmd shortcut | Ghostty sends | nvim action |
-|---|---|---|
-| Cmd+P | Alt+p | Quick open (find files) |
-| Cmd+Shift+P | Alt+Shift+p | Command palette |
-| Cmd+Shift+F | Alt+Shift+f | Search in files (live grep) |
-| Cmd+B | Alt+b | Toggle the file tree |
-| Cmd+S | Alt+s | Save the file |
-| Cmd+J | Alt+j | Toggle the terminal panel (also in terminal mode) |
-| Cmd+/ | Alt+/ | Toggle the comment |
-| Cmd+Shift+V | Alt+Shift+v | Toggle the Markdown preview (markdown buffers only) |
+| Cmd shortcut | Ghostty sends | nvim map | nvim action |
+|---|---|---|---|
+| Cmd+P | Alt+p | `<M-p>` | Quick open (find files) |
+| Cmd+Shift+P | Alt+Shift+p | `<M-P>` | Command palette |
+| Cmd+Shift+F | Alt+Shift+f | `<M-F>` | Search in files (live grep) |
+| Cmd+B | Alt+b | `<M-b>` | Toggle the file tree |
+| Cmd+S | Alt+s | `<M-s>` | Save the file |
+| Cmd+J | Alt+j | `<M-j>` | Toggle the terminal panel (also in terminal mode) |
+| Cmd+/ | Alt+/ | `<M-/>` | Toggle the comment |
+| Cmd+Shift+V | Alt+Shift+v | `<M-V>` | Toggle the Markdown preview (markdown buffers only) |
 
-Cmd shortcuts at the fish prompt are not supported. fish reads Alt+s as "put `sudo` before the command" and Alt+p as "add `| less`".
+Do not use the Alt+key keys at the fish prompt. fish reads Alt+s as "put `sudo` before the command" and Alt+p as "add `| less`".
 
 ## Option+Left and Option+Right
 
-Ghostty sends the Alt arrow sequences for these keys. The default Ghostty key sends ESC b, which is the same as Cmd+B.
+Ghostty sends the Alt arrow sequences for these keys. The Ghostty default sends ESC b for Option+Left, which is the byte sequence of Cmd+B. nvim could not tell the two keys apart.
 
 | Key | fish | nvim |
 |---|---|---|
-| Option+Left | Move one word back | Move one word back (`<S-Left>`) |
-| Option+Right | Move one word forward | Move one word forward (`<S-Right>`) |
+| Option+Left | Move one word back. If the command line is empty: go to the previous directory | Move one word back (`<M-Left>` is `<S-Left>`) |
+| Option+Right | Move one word forward. If the command line is empty: go to the next directory | Move one word forward (`<M-Right>` is `<S-Right>`) |
 
 ## Zellij prefix table
 
@@ -127,6 +131,6 @@ The built-in `gi` (insert at the last insert position) and `g]` (select a tag) a
 | Key | Action |
 |---|---|
 | `gr`, `grr` | ReplaceWithRegister |
-| `grx` | nvim default |
+| `grx` | Run the code lens (nvim default) |
 | `<` and `>` in visual mode | Change the indent and keep the selection |
 | `Down` and `Up` in the command line | Pick a menu item while the menu is open. Otherwise browse the history |
