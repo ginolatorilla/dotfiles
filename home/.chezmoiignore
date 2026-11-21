@@ -1,0 +1,5 @@
+{{- /* Target paths that chezmoi does not place on this Machine. */ -}}
+{{ if ne .chezmoi.os "darwin" }}
+# macOS only: the Ghostty config lives under ~/Library.
+Library
+{{ end }}

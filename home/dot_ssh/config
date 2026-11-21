@@ -1,3 +1,7 @@
+IgnoreUnknown UseKeychain
+# Keep the line above first. UseKeychain is macOS only, and OpenSSH on Linux
+# stops on unknown options.
+
 Include ~/.ssh/config.local
 Include ~/github.com/ginolatorilla/.sshconfig
 

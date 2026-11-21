@@ -1,17 +1,28 @@
+# Put Homebrew on PATH first, because the next lines use tools from it.
+# Homebrew is in /opt/homebrew on macOS and in /home/linuxbrew/.linuxbrew on Linux.
+for brew_prefix in /opt/homebrew /home/linuxbrew/.linuxbrew
+    if test -x $brew_prefix/bin/brew
+        $brew_prefix/bin/brew shellenv | source
+        break
+    end
+end
+set --erase brew_prefix
+
 set --global --export EDITOR (command -v nvim)
 set --global --export GPG_TTY (tty)
+
+# Keep the k9s and lazygit configs in ~/.config on macOS too.
+set --global --export K9S_CONFIG_DIR $HOME/.config/k9s
+set --global --export LG_CONFIG_FILE $HOME/.config/lazygit/config.yml
 
 if command -q python3
     fish_add_path (python3 -c 'import os,sysconfig;print(sysconfig.get_path("scripts"))')
     fish_add_path (python3 -c 'import os,sysconfig;print(sysconfig.get_path("scripts",f"{os.name}_user"))')
 end
 
+# On Linux, keychain starts one ssh agent and one gpg agent for all shells.
 if command -q keychain
     eval (keychain --agents gpg,ssh --eval)
-end
-
-if [ -f /opt/homebrew/bin/brew ]
-    /opt/homebrew/bin/brew shellenv | source
 end
 
 if [ -d $HOME/.local/bin ]
@@ -30,8 +41,8 @@ if [ -d $HOME/.cargo/bin ]
     fish_add_path $HOME/.cargo/bin
 end
 
-if [ -d /opt/homebrew/opt/mysql-client/bin ]
-    fish_add_path /opt/homebrew/opt/mysql-client/bin
+if set --query HOMEBREW_PREFIX; and [ -d $HOMEBREW_PREFIX/opt/mysql-client/bin ]
+    fish_add_path $HOMEBREW_PREFIX/opt/mysql-client/bin
 end
 
 if [ -d $HOME/.docker/bin ]
@@ -42,7 +53,9 @@ end
 source ~/.bash_aliases
 
 for plugin in starship zoxide atuin
-    $plugin init fish | source
+    if command -q $plugin
+        $plugin init fish | source
+    end
 end
 
 # Vi mode

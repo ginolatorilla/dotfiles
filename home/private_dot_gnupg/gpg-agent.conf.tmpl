@@ -1,0 +1,8 @@
+{{- /* chezmoi template. chezmoi writes a copy, not a symlink. */ -}}
+default-cache-ttl 28800
+{{ if eq .chezmoi.os "darwin" -}}
+pinentry-program /opt/homebrew/bin/pinentry-mac
+{{- else -}}
+pinentry-program /home/linuxbrew/.linuxbrew/bin/pinentry-curses
+{{- end }}
+extra-socket {{ .chezmoi.homeDir }}/.gnupg/S.gpg-agent.extra
