@@ -12,5 +12,7 @@
 [core]
     sshCommand = ssh -i ~/.ssh/id_rsa.ginolatorilla
 
-[includeIf "gitdir:~/work/"]
-    path = ~/work/.gitconfig
+# Local overrides (not managed by dotfiles). Keep this include last, so that
+# its settings win.
+[include]
+    path = ~/.gitconfig.local

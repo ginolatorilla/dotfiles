@@ -1,0 +1,18 @@
+font-family = ComicShannsMono Nerd Font Mono
+theme = light:Atom One Light,dark:Andromeda
+macos-option-as-alt = true
+# Ghostty defaults send ESC b / ESC f for Alt+Left/Right (word motion).
+# Zellij reads ESC f as Alt+f (floating pane), so send real Alt+arrow sequences.
+keybind = alt+arrow_left=csi:1;3D
+keybind = alt+arrow_right=csi:1;3C
+
+# VS Code-style Cmd shortcuts for nvim. Cmd is not forwarded through tmux,
+# so each is sent as Alt+<key> (ESC <key>); nvim maps <M-key>.
+keybind = cmd+p=text:\x1bp
+keybind = cmd+shift+p=text:\x1bP
+keybind = cmd+shift+f=text:\x1bF
+keybind = cmd+b=text:\x1bb
+keybind = cmd+s=text:\x1bs
+keybind = cmd+j=text:\x1bj
+keybind = cmd+slash=text:\x1b/
+keybind = cmd+shift+v=text:\x1bV

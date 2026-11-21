@@ -127,3 +127,13 @@ alias mkcd='_(){ mkdir -p "$*"; cd "$*"; }; _'
 if command -v argocd >/dev/null; then
     . <(argocd completion bash)
 fi
+
+# Local overrides (not managed by dotfiles)
+[ -f "$HOME/.bashrc.local" ] && . "$HOME/.bashrc.local"
+
+# >>> lean-ctx agent aliases >>>
+alias claude='LEAN_CTX_AGENT=1 BASH_ENV="$HOME/.bashenv" claude'
+alias codebuddy='LEAN_CTX_AGENT=1 BASH_ENV="$HOME/.bashenv" codebuddy'
+alias codex='LEAN_CTX_AGENT=1 BASH_ENV="$HOME/.bashenv" codex'
+alias gemini='LEAN_CTX_AGENT=1 BASH_ENV="$HOME/.bashenv" gemini'
+# <<< lean-ctx agent aliases <<<

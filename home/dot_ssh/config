@@ -1,5 +1,5 @@
-Include ~/work/.sshconfig
-Include ~/projects/.sshconfig
+Include ~/.ssh/config.local
+Include ~/github.com/ginolatorilla/.sshconfig
 
 Host github.com
     IdentitiesOnly yes
@@ -8,9 +8,7 @@ Host *.compute.amazonaws.com
     User ec2-user
 
 Host *
-    User ginolatorilla
     ForwardAgent yes
     AddKeysToAgent yes
     UseKeychain yes
-    IdentityFile ~/.ssh/id_rsa.ginolatorilla
     ServerAliveInterval 60

@@ -1,6 +1,4 @@
-set --global --export EDITOR (command -v vim)
-set --global --export VISUAL (command -v code)' --wait'
-
+set --global --export EDITOR (command -v nvim)
 set --global --export GPG_TTY (tty)
 
 if command -q python3
@@ -36,14 +34,6 @@ if [ -d /opt/homebrew/opt/mysql-client/bin ]
     fish_add_path /opt/homebrew/opt/mysql-client/bin
 end
 
-if [ -d /opt/homebrew/Cellar/ruby/3.3.6/bin/ ]
-    fish_add_path /opt/homebrew/Cellar/ruby/3.3.6/bin/
-end
-
-if [ -d $HOME/.gem/ruby/3.3.6/bin ]
-    fish_add_path $HOME/.gem/ruby/3.3.6/bin
-end
-
 if [ -d $HOME/.docker/bin ]
     fish_add_path $HOME/.docker/bin
 end
@@ -51,7 +41,9 @@ end
 # Inherit aliases from Bash
 source ~/.bash_aliases
 
-starship init fish | source
+for plugin in starship zoxide atuin
+    $plugin init fish | source
+end
 
 # Vi mode
 fish_vi_key_bindings
@@ -70,3 +62,13 @@ set fish_cursor_external line
 # visual mode, but due to fish_cursor_default, is redundant here
 set fish_cursor_visual block
 set fish_vi_force_cursor 1
+
+# Local overrides (not managed by dotfiles)
+if test -f "$__fish_config_dir/config.fish.local"
+    source "$__fish_config_dir/config.fish.local"
+end
+# lean-ctx shell hook — begin
+if test -f "$HOME/.config/lean-ctx/shell-hook.fish"
+    source "$HOME/.config/lean-ctx/shell-hook.fish"
+end
+# lean-ctx shell hook — end

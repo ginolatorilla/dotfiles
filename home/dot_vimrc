@@ -54,7 +54,7 @@ set showmode
 " set showmodename
 set smartcase
 set startofline
-set textwidth=80
+set textwidth=0
 " set timeout=1000
 set whichwrap=b,s
 
