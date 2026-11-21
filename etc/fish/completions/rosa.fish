@@ -1,1 +1,0 @@
-rosa completion fish | source

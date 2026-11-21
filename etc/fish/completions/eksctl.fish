@@ -1,1 +1,0 @@
-eksctl completion fish | source
