@@ -1,0 +1,104 @@
+# Apply the Dotfiles on macOS and Ubuntu on each push. The check does not
+# install the Packages: brew bundle takes too long for each push. It checks
+# that the Brewfile parses and selects the right entries on each Platform.
+name: Check
+
+on:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  HOMEBREW_NO_AUTO_UPDATE: "1"
+  HOMEBREW_NO_INSTALL_CLEANUP: "1"
+
+jobs:
+  lint:
+    name: Lint the shell scripts
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - name: Run shellcheck
+        run: shellcheck install.sh
+
+  apply:
+    name: Apply on ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, ubuntu-24.04]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Place the Dotfiles
+        run: ./install.sh --dotfiles-only
+
+      - name: Run install.sh again
+        run: ./install.sh --dotfiles-only
+
+      - name: Put Homebrew on PATH for the next steps
+        run: |
+          for prefix in /opt/homebrew /home/linuxbrew/.linuxbrew; do
+            if [ -x "$prefix/bin/brew" ]; then
+              echo "$prefix/bin" >> "$GITHUB_PATH"
+              break
+            fi
+          done
+
+      - name: Check that the Dotfiles match the repo
+        run: |
+          chezmoi verify --exclude scripts
+          status="$(chezmoi status --exclude scripts)"
+          if [ -n "$status" ]; then
+            echo "$status"
+            exit 1
+          fi
+
+      - name: Check the placed files
+        run: |
+          set -x
+          test -L ~/.config/fish/config.fish
+          test -L ~/.gitconfig
+          test -L ~/.Brewfile
+          test -L ~/.ssh/config
+          test "$(head -n 1 ~/.ssh/config)" = "IgnoreUnknown UseKeychain"
+          test -f ~/.gnupg/gpg-agent.conf
+          test ! -L ~/.gnupg/gpg-agent.conf
+          test "$(stat -c %a ~/.gnupg 2>/dev/null || stat -f %Lp ~/.gnupg)" = 700
+          ghostty="$HOME/Library/Application Support/com.mitchellh.ghostty/config.ghostty"
+          if [ "$RUNNER_OS" = macOS ]; then
+            grep -q 'pinentry-mac' ~/.gnupg/gpg-agent.conf
+            test -L "$ghostty"
+          else
+            grep -q 'pinentry-curses' ~/.gnupg/gpg-agent.conf
+            test ! -e "$ghostty"
+          fi
+
+      - name: Check the Brewfile entries for this Platform
+        run: |
+          brew bundle list --global --all > /dev/null
+          formulae="$(brew bundle list --global --formula)"
+          casks="$(brew bundle list --global --cask)"
+          winget="$(brew bundle list --global --winget)"
+          has() { printf '%s\n' "$1" | grep -qx "$2"; }
+          fail() { echo "Brewfile check failed: $*"; exit 1; }
+          [ -z "$winget" ] || fail "winget entries outside WSL: $winget"
+          if [ "$RUNNER_OS" = macOS ]; then
+            has "$casks" ghostty || fail "ghostty cask missing on macOS"
+            has "$formulae" pinentry-mac || fail "pinentry-mac missing on macOS"
+            ! has "$formulae" keychain || fail "keychain listed on macOS"
+          else
+            [ -z "$casks" ] || fail "casks listed on Linux: $casks"
+            ! has "$formulae" pinentry-mac || fail "pinentry-mac listed on Linux"
+            has "$formulae" keychain || fail "keychain missing on Linux"
+          fi
+
+      - name: Start fish with the Dotfiles
+        run: |
+          brew install fish
+          fish -c 'set --query K9S_CONFIG_DIR; and functions --query mkcd' 2> fish.err
+          cat fish.err
+          test ! -s fish.err
