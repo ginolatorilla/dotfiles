@@ -1,8 +1,10 @@
 font-family = ComicShannsMono Nerd Font Mono
 theme = light:Atom One Light,dark:Andromeda
 macos-option-as-alt = true
-# The Ghostty default sends ESC b for Option+Left, which is the same as Cmd+B
-# (nvim file tree). Send real Alt+arrow sequences instead.
+# The Ghostty default sends ESC b for Option+Left and ESC f for Option+Right.
+# ESC b is also the byte sequence of Cmd+B (nvim file tree), so nvim cannot
+# tell the two keys apart. Send real Alt+arrow sequences, which nvim maps to
+# word motion (<M-Left> and <M-Right>).
 keybind = alt+arrow_left=csi:1;3D
 keybind = alt+arrow_right=csi:1;3C
 
