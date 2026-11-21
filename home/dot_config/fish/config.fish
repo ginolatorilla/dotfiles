@@ -23,10 +23,12 @@ end
 # On Linux, keychain starts one ssh-agent for all shells. It loads no keys:
 # ssh adds each key on first use (AddKeysToAgent in ~/.ssh/config). GnuPG
 # starts gpg-agent itself. keychain 3 ignores --agents and prints a warning.
+# keychain --eval writes the syntax of the shell in $SHELL. $SHELL can name
+# another shell, for example when bash starts fish, so set it to fish.
 if command -q keychain; and begin
         status is-interactive; or status is-login
     end
-    eval "$(keychain add --eval --quiet --noask)"
+    eval "$(SHELL=fish keychain add --eval --quiet --noask)"
 end
 
 if [ -d $HOME/.local/bin ]

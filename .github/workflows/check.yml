@@ -108,6 +108,10 @@ jobs:
             brew install keychain
             checks="$checks; and set --query SSH_AUTH_SOCK"
           fi
-          fish --login -c "$checks" 2> fish.err
+          # bash -e stops at the first failed command. Keep the exit status
+          # of fish, so that the step shows fish.err before it fails.
+          status=0
+          fish --login -c "$checks" 2> fish.err || status=$?
           cat fish.err
+          test "$status" -eq 0
           test ! -s fish.err
