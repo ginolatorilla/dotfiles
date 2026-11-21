@@ -1,7 +1,8 @@
-// Zellij binds only Ctrl+Space (the tmux-style prefix), so that all Alt and
-// Ctrl keys reach nvim and fish. Each key after the prefix does one action
-// and goes back to Normal mode. The Scroll, Search, rename, Resize and Move
-// modes keep the Zellij default keys, minus the Ctrl mode switches.
+// In Normal mode, Zellij binds only Ctrl+Space (the tmux-style prefix), so
+// that all Alt and Ctrl keys reach nvim and fish. Each key after the prefix
+// does one action and goes back to Normal mode. The Resize, Move, Scroll,
+// Search and RenameTab modes keep the Zellij default keys. They do not keep
+// the default Ctrl keys that switch to other modes.
 keybinds clear-defaults=true {
     normal {
         bind "Ctrl Space" { SwitchToMode "Tmux"; }
@@ -32,7 +33,7 @@ keybinds clear-defaults=true {
         bind "," { SwitchToMode "RenameTab"; TabNameInput 0; }
         bind "&" { CloseTab; SwitchToMode "Normal"; }
         bind "[" { SwitchToMode "Scroll"; }
-        bind "d" { Detach; }
+        bind "d" { Detach; SwitchToMode "Normal"; }
         bind "w" {
             LaunchOrFocusPlugin "session-manager" {
                 floating true
@@ -46,7 +47,7 @@ keybinds clear-defaults=true {
         bind "F" { NewFloatingPane; SwitchToMode "Normal"; }
         bind "r" { SwitchToMode "Resize"; }
         bind "m" { SwitchToMode "Move"; }
-        bind "q" { Quit; }
+        bind "q" { Quit; SwitchToMode "Normal"; }
     }
     resize {
         bind "h" "Left" { Resize "Increase Left"; }
@@ -68,32 +69,24 @@ keybinds clear-defaults=true {
         bind "k" "Up" { MovePane "Up"; }
         bind "l" "Right" { MovePane "Right"; }
     }
+    shared_among "scroll" "search" {
+        bind "Ctrl c" { ScrollToBottom; SwitchToMode "Normal"; }
+        bind "j" "Down" { ScrollDown; }
+        bind "k" "Up" { ScrollUp; }
+        bind "Ctrl f" "PageDown" "Right" "l" { PageScrollDown; }
+        bind "Ctrl b" "PageUp" "Left" "h" { PageScrollUp; }
+        bind "d" { HalfPageScrollDown; }
+        bind "u" { HalfPageScrollUp; }
+        bind "[" { ScrollToPreviousPrompt; }
+        bind "]" { ScrollToNextPrompt; }
+        bind "m" { SelectCommandAtScrollPosition; }
+    }
     scroll {
         bind "e" { EditScrollback; SwitchToMode "Normal"; }
         bind "s" { SwitchToMode "EnterSearch"; SearchInput 0; }
-        bind "Ctrl c" { ScrollToBottom; SwitchToMode "Normal"; }
-        bind "j" "Down" { ScrollDown; }
-        bind "k" "Up" { ScrollUp; }
-        bind "Ctrl f" "PageDown" "Right" "l" { PageScrollDown; }
-        bind "Ctrl b" "PageUp" "Left" "h" { PageScrollUp; }
-        bind "d" { HalfPageScrollDown; }
-        bind "u" { HalfPageScrollUp; }
-        bind "[" { ScrollToPreviousPrompt; }
-        bind "]" { ScrollToNextPrompt; }
-        bind "m" { SelectCommandAtScrollPosition; }
         bind "c" { CopyLastCommandOutput; SwitchToMode "Normal"; }
     }
     search {
-        bind "Ctrl c" { ScrollToBottom; SwitchToMode "Normal"; }
-        bind "j" "Down" { ScrollDown; }
-        bind "k" "Up" { ScrollUp; }
-        bind "Ctrl f" "PageDown" "Right" "l" { PageScrollDown; }
-        bind "Ctrl b" "PageUp" "Left" "h" { PageScrollUp; }
-        bind "d" { HalfPageScrollDown; }
-        bind "u" { HalfPageScrollUp; }
-        bind "[" { ScrollToPreviousPrompt; }
-        bind "]" { ScrollToNextPrompt; }
-        bind "m" { SelectCommandAtScrollPosition; }
         bind "n" { Search "down"; }
         bind "p" { Search "up"; }
         bind "c" { SearchToggleOption "CaseSensitivity"; }
@@ -107,14 +100,6 @@ keybinds clear-defaults=true {
     renametab {
         bind "Ctrl c" { SwitchToMode "Normal"; }
         bind "Esc" { UndoRenameTab; SwitchToMode "Normal"; }
-    }
-    renamepane {
-        bind "Ctrl c" { SwitchToMode "Normal"; }
-        bind "Esc" { UndoRenamePane; SwitchToMode "Normal"; }
-    }
-    renamesession {
-        bind "Ctrl c" { SwitchToMode "Normal"; }
-        bind "Esc" { UndoRenameSession; SwitchToMode "Normal"; }
     }
     shared_except "normal" "locked" {
         bind "Enter" "Esc" { SwitchToMode "Normal"; }
