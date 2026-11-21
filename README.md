@@ -23,13 +23,13 @@ flowchart LR
     BF -- "brew bundle --global" --> PK["Packages: formulae, casks, Go, npm, uv, krew, winget"]
 ```
 
-Each Dotfile is a symlink into the checkout, so an edit to a Dotfile is an
-edit to the repo. Templates, such as `gpg-agent.conf`, are copies.
+Each Dotfile is a symlink into the Checkout, so an edit to a Dotfile is an
+edit to the Checkout. Templates, such as `gpg-agent.conf`, are copies.
 
 ## Before you begin
 
 - A Mac, or an Ubuntu 24.04 distro under WSL 2.
-- A shell, `curl` and `git`. The setup needs no Python virtual environment.
+- A shell, `curl` and `git`. Setup needs no Python virtual environment.
 - An account that can run `sudo`.
 
 ## Setting up a Machine
@@ -40,7 +40,7 @@ edit to the repo. Templates, such as `gpg-agent.conf`, are copies.
     bash -c "$(curl -fsSL https://raw.githubusercontent.com/ginolatorilla/dotfiles/main/install.sh)"
     ```
 
-    If you already have a checkout, run `./install.sh` in it instead.
+    If you already have a Checkout, run `./install.sh` in it instead.
 
     The script does these steps. It skips each step that is already done:
 
@@ -51,6 +51,7 @@ edit to the repo. Templates, such as `gpg-agent.conf`, are copies.
        from `curl`.
     1. Runs `chezmoi init --apply`, which places the Dotfiles and then runs
        `brew bundle --global` and `fisher update`.
+    1. Installs the Packages and fish plugins that are still missing.
     1. Makes Homebrew fish the login shell.
 
 1. Copy the Secrets by hand. The repo and the Local overrides never hold
@@ -83,7 +84,7 @@ Do these steps on the Windows PC. The PC hosts the Machine but is not one
 `brew bundle` installs Docker Desktop through winget when you run
 `install.sh` in the distro.
 
-## Syncing a Machine
+## Running Setup again
 
 To get the latest changes from the repo, pull and run `install.sh` again:
 
@@ -94,23 +95,37 @@ git pull
 ```
 
 chezmoi runs `brew bundle --global` again only if `home/dot_Brewfile` or
-`~/.Brewfile.local` changed.
+`~/.Brewfile.local` changed. `install.sh` also installs each Package and fish
+plugin that is missing, for example one that you removed by hand.
 
-## Checking for drift
+## Checking for Drift
 
-To show the differences between a Machine and the repo without changing
-anything, run:
+To see what Setup would change on a Machine, without changing anything,
+run:
 
 ```sh
 ./install.sh --check
 ```
 
-The command runs `chezmoi status` and `brew bundle check --global
---no-upgrade --verbose`. It exits with status 1 if a Dotfile differs from
-the repo or a Package is missing. Outdated Packages are not drift.
+The command also works before the first Setup, for example on a Machine with
+no Homebrew or with a chezmoi from outside Homebrew. It prints one line for
+each Setup step:
+
+- `ok`: Setup would change nothing in this step.
+- `drift`: Setup would change something. The details are below the line.
+- `not checked`: an earlier step is missing, so `--check` cannot check this
+  step. This counts as Drift.
+
+The steps are the apt prerequisites (Linux only), Homebrew, the Checkout, the
+chezmoi config, the Dotfiles, the Packages, the fish plugins and the login
+shell. Outdated Packages are not Drift.
+
+The command exits with status 0 if there is no Drift, 1 if there is Drift,
+and 2 if there is an error. With `--dotfiles-only`, it checks only what
+`./install.sh --dotfiles-only` would change.
 
 Some Packages replace their Dotfile instead of editing it. The symlink then
-becomes a regular file, and `chezmoi status` shows it.
+becomes a regular file, and the Dotfiles step shows it.
 
 ## Adding a Package
 
@@ -134,7 +149,7 @@ cargo packages that are not listed.
     chezmoi add ~/.config/example/config.toml
     ```
 
-1. Replace the file with a symlink into the checkout:
+1. Replace the file with a symlink into the Checkout:
 
     ```sh
     chezmoi apply ~/.config/example/config.toml
@@ -159,6 +174,20 @@ Dotfile below includes its Local override if the file exists:
 | `~/.ssh/config` | `~/.ssh/config.local` |
 | `~/.Brewfile` | `~/.Brewfile.local` |
 
+## Testing install.sh
+
+The test runs `install.sh` with a scratch home directory and stubs for
+`brew`, `fish`, `chsh` and `sudo`, so it changes nothing on the Machine and
+installs no Package. It needs `git` and chezmoi.
+
+1. Run the test:
+
+    ```sh
+    tests/install_test.sh
+    ```
+
+1. Make sure that the last line of the output is `All tests passed.`
+
 ## Repo layout
 
 ```text
@@ -172,7 +201,8 @@ Dotfile below includes its Local override if the file exists:
 │   └── run_onchange_after_*.sh.tmpl
 ├── docs/CONTEXT.md               # Glossary
 ├── docs/adr/                     # Decision records
-└── install.sh                    # Setup, sync and --check
+├── install.sh                    # Setup and --check
+└── tests/install_test.sh         # Sandbox test for install.sh
 ```
 
 Inspired by [cowboy/dotfiles](https://github.com/cowboy/dotfiles).

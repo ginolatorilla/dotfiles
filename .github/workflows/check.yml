@@ -21,7 +21,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - name: Run shellcheck
-        run: shellcheck install.sh
+        run: shellcheck install.sh tests/install_test.sh
 
   apply:
     name: Apply on ${{ matrix.os }}
@@ -47,6 +47,9 @@ jobs:
               break
             fi
           done
+
+      - name: Run the install.sh tests
+        run: tests/install_test.sh
 
       - name: Check that the Dotfiles match the repo
         run: |

@@ -14,6 +14,10 @@ _Avoid_: host, laptop, box
 The operating-system family of a Machine: macOS or Linux. WSL counts as Linux.
 _Avoid_: OS, environment
 
+**Checkout**:
+The clone of the repo on a Machine. Each Dotfile links into the Checkout, so an edit to a Dotfile is an edit to the Checkout.
+_Avoid_: source, clone, dotfiles dir
+
 ### What gets set up
 
 **Dotfile**:
@@ -27,6 +31,16 @@ _Avoid_: tool, app
 **Local override**:
 An untracked file on one Machine that a Dotfile includes, holding settings or Packages that are specific to that Machine or Private.
 _Avoid_: vars, host vars
+
+### Keeping a Machine in line
+
+**Setup**:
+Bringing a Machine in line with its Checkout, so that its Dotfiles, Packages and login shell match. The first run and each later run are the same Setup.
+_Avoid_: sync, bootstrap, provisioning, install
+
+**Drift**:
+A difference between a Machine and its Checkout that Setup would remove. An outdated Package is not Drift, and neither is a Package that neither the Checkout nor a Local override lists, because Setup leaves both alone.
+_Avoid_: diff, out of sync, divergence
 
 ### What stays out of the repo
 
