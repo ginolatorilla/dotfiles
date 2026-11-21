@@ -1,0 +1,18 @@
+[user]
+    name = Gino Latorilla
+    email = pblatorilla+github@gmail.com
+    signingkey = 20F686340836D81F
+
+[commit]
+    gpgsign = true
+
+[init]
+    defaultBranch = main
+
+[core]
+    sshCommand = ssh -i ~/.ssh/id_rsa.ginolatorilla
+
+# Local overrides (not managed by dotfiles). Keep this include last, so that
+# its settings win.
+[include]
+    path = ~/.gitconfig.local

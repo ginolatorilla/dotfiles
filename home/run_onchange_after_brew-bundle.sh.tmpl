@@ -1,0 +1,21 @@
+#!/bin/sh
+# Install the Packages in ~/.Brewfile and ~/.Brewfile.local.
+#
+# chezmoi runs this script after it places the Dotfiles, and again when one of
+# these hashes changes:
+#   dot_Brewfile: {{ include "dot_Brewfile" | sha256sum }}
+{{- $local := joinPath .chezmoi.homeDir ".Brewfile.local" }}
+#   ~/.Brewfile.local: {{ if stat $local }}{{ include $local | sha256sum }}{{ else }}none{{ end }}
+#
+# If this script fails, chezmoi runs it again on the next `chezmoi apply`.
+
+set -eu
+
+for brew_prefix in /opt/homebrew /home/linuxbrew/.linuxbrew; do
+    if [ -x "$brew_prefix/bin/brew" ]; then
+        eval "$("$brew_prefix/bin/brew" shellenv)"
+        break
+    fi
+done
+
+brew bundle --global

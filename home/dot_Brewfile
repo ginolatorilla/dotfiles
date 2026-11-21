@@ -1,0 +1,377 @@
+# Brewfile
+#
+# The Packages for each Machine, grouped by purpose. chezmoi places this file
+# at ~/.Brewfile. One file serves macOS and Linux (see docs/adr/0002).
+#
+# How to use this file
+# --------------------
+# chezmoi runs `brew bundle --global` when this file or ~/.Brewfile.local
+# changes. To run the commands yourself:
+#
+# Install everything listed here:
+#     brew bundle --global
+#
+# Check what is missing, without installing anything:
+#     brew bundle check --global --verbose
+#
+# List installed Packages that are NOT in this file (dry run, nothing removed):
+#     brew bundle cleanup --global
+#
+# Remove those Packages. This also removes unlisted Go, npm, uv, krew and
+# cargo packages, so read the dry-run output first:
+#     brew bundle cleanup --global --force
+#
+# Adding a Package
+# ----------------
+# Put the line in the group it belongs to, with a one-line comment above it
+# that describes the Package. Put casks and macOS-only formulae under
+# `if OS.mac?`, Linux-only entries under `if OS.linux?` and winget entries
+# under `if OS.wsl?`. Put Private Packages in ~/.Brewfile.local, which is not
+# tracked (see docs/adr/0003).
+
+# ---------------------------------------------------------------------------
+# Taps
+# ---------------------------------------------------------------------------
+tap "hashicorp/tap", trusted: true
+tap "replicatedhq/replicated"
+tap "yvgude/lean-ctx"
+tap "huseyinbabal/tap", trusted: true
+
+# ---------------------------------------------------------------------------
+# Modern CLI replacements (newer Packages that replace classic Unix commands)
+# ---------------------------------------------------------------------------
+# A cat clone with syntax highlighting and Git integration (replaces cat)
+brew "bat"
+# Modern replacement for ls (replaces ls)
+brew "eza"
+# Simple, fast and user-friendly alternative to find (replaces find)
+brew "fd"
+# Search tool like grep and The Silver Searcher (replaces grep)
+brew "ripgrep"
+# More intuitive version of du (replaces du)
+brew "dust"
+# Disk usage utility with a readable table (replaces df)
+brew "duf"
+# Modern replacement for ps, written in Rust (replaces ps)
+brew "procs"
+# Explains why a process, port or service is running: its ancestry, listener and start reason
+brew "witr"
+# User-friendly cURL replacement, command-line HTTP client (replaces curl)
+brew "httpie"
+# Intuitive find & replace CLI (replaces sed for simple substitutions)
+brew "sd"
+# Shell extension to navigate your filesystem faster (replaces cd)
+brew "zoxide"
+# Magical shell history: searchable, syncable and backed up (replaces Ctrl-R history search)
+brew "atuin"
+# Lightweight and flexible command-line JSON processor (replaces manual JSON edits)
+brew "jq"
+# Process YAML, JSON, XML, CSV and properties documents from the CLI (replaces manual YAML edits)
+brew "yq"
+# Simplified, community-driven man pages (replaces man for quick usage examples)
+brew "tlrc"
+
+# ---------------------------------------------------------------------------
+# Terminal UIs (interactive terminal applications)
+# ---------------------------------------------------------------------------
+# Interactive resource monitor for CPU, memory, disks, network and processes (replaces top)
+brew "btop"
+# Interactive tree view with fuzzy search for navigating directories (replaces tree for browsing)
+brew "broot"
+# Blazing fast terminal file manager written in Rust, based on async I/O
+brew "yazi"
+# Simple terminal UI for git commands
+brew "lazygit"
+# Lazier way to manage Docker containers, images, volumes and logs in a terminal UI
+brew "lazydocker"
+# Kubernetes CLI To Manage Your Clusters In Style!
+brew "k9s"
+# Terminal UI for AWS
+brew "huseyinbabal/tap/taws"
+# Pluggable terminal workspace, with terminal multiplexer as the base feature
+brew "zellij"
+
+# ---------------------------------------------------------------------------
+# Shell, terminal and multiplexing
+# ---------------------------------------------------------------------------
+# User-friendly command-line shell for UNIX-like operating systems
+brew "fish"
+# Plugin manager for the Fish shell (installs the plugins in fish_plugins)
+brew "fisher"
+# Bourne-Again SHell, a UNIX command interpreter
+brew "bash"
+# Programmable completion for Bash 3.2
+brew "bash-completion"
+# Cross-shell prompt for astronauts
+brew "starship"
+# Terminal multiplexer
+brew "tmux"
+# Command-line fuzzy finder written in Go
+brew "fzf"
+# Executes a program periodically, showing output fullscreen
+brew "watch"
+# Display directories as trees (with optional color/HTML output)
+brew "tree"
+# Cross-platform command-line tool for executing jobs in parallel
+brew "rush-parallel"
+# Manage your dotfiles across multiple diverse machines (places the Dotfiles from this repo)
+brew "chezmoi"
+
+# ---------------------------------------------------------------------------
+# GNU userland (GNU versions of standard commands, used alongside macOS ones)
+# ---------------------------------------------------------------------------
+# GNU implementation of the famous stream editor
+brew "gnu-sed"
+# GNU version of the tar archiving utility
+brew "gnu-tar"
+# GNU grep, egrep and fgrep
+brew "grep"
+# GNU troff text-formatting system
+brew "groff"
+
+# ---------------------------------------------------------------------------
+# Editors
+# ---------------------------------------------------------------------------
+# Ambitious Vim-fork focused on extensibility and agility
+brew "neovim"
+
+# ---------------------------------------------------------------------------
+# Languages and runtimes
+# ---------------------------------------------------------------------------
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.13"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.12"
+# Powerful, lightweight programming language
+brew "lua"
+# Open-source, cross-platform JavaScript runtime environment
+brew "node"
+# Powerful, clean, object-oriented scripting language
+brew "ruby", link: false
+# Rust toolchain installer
+brew "rustup"
+# Open source programming language to build simple, reliable and efficient software
+brew "go"
+# Extremely fast Python package installer and resolver, written in Rust
+brew "uv"
+# Polyglot runtime manager for installing and switching tool versions (asdf-compatible)
+brew "mise"
+# GNU Ubiquitous Intelligent Language for Extensions
+brew "guile"
+
+# ---------------------------------------------------------------------------
+# Development
+# ---------------------------------------------------------------------------
+# Distributed revision control system
+brew "git"
+# Syntax-highlighting pager for git and diff output (replaces the default git pager)
+brew "git-delta"
+# GitHub command-line tool
+brew "gh"
+# Open-source GitLab command-line tool
+brew "glab"
+# Cross-platform make
+brew "cmake"
+# Command runner for project-specific recipes (replaces make for task running)
+brew "just"
+# Command-line benchmarking tool
+brew "hyperfine"
+# Framework for managing multi-language pre-commit hooks
+brew "pre-commit"
+# Static analysis and lint tool, for (ba)sh scripts
+brew "shellcheck"
+# Parser generator tool
+brew "tree-sitter-cli"
+# Template-free customization of Kubernetes YAML manifests
+brew "kustomize"
+# YAML templating tool that works on YAML structure instead of text
+brew "ytt"
+# Tool to generate documentation from Terraform modules
+brew "terraform-docs"
+# Local engine for the LeanCTX Context Gateway for AI Systems
+brew "yvgude/lean-ctx/lean-ctx", trusted: true
+
+# ---------------------------------------------------------------------------
+# Containers and virtualization
+# ---------------------------------------------------------------------------
+# Pack, ship and run any application as a lightweight container
+brew "docker"
+# Docker CLI plugin for extended build capabilities with BuildKit
+brew "docker-buildx"
+# Isolated development environments using Docker
+brew "docker-compose"
+# Platform keystore credential helper for Docker
+brew "docker-credential-helper"
+# Work with remote images registries
+brew "skopeo"
+# Linux virtual machines
+brew "lima"
+
+# ---------------------------------------------------------------------------
+# Kubernetes and cloud
+# ---------------------------------------------------------------------------
+# Kubernetes command-line interface
+brew "kubernetes-cli"
+# Package manager for kubectl plugins (installs the krew entries below)
+brew "krew"
+# Kubernetes package manager
+brew "helm"
+# GitOps Continuous Delivery for Kubernetes
+brew "argocd"
+# Kubernetes controller and tool for one-way encrypted Secrets
+brew "kubeseal"
+# Disaster recovery for Kubernetes resources and persistent volumes
+brew "velero"
+# Simple command-line tool for creating clusters on Amazon EKS
+brew "eksctl"
+# Terraform
+brew "hashicorp/tap/terraform"
+# Open-source, drop-in replacement for Terraform (Infrastructure as Code)
+brew "opentofu"
+
+# ---------------------------------------------------------------------------
+# Security and secrets
+# ---------------------------------------------------------------------------
+# GNU Privacy Guard (OpenPGP)
+brew "gnupg"
+# Passphrase entry dialog utilizing the Assuan protocol (pinentry-curses on Linux)
+brew "pinentry"
+# Vault
+brew "hashicorp/tap/vault"
+
+# ---------------------------------------------------------------------------
+# Networking and databases
+# ---------------------------------------------------------------------------
+# Port scanning utility for large networks
+brew "nmap"
+# Ping, but with a graph
+brew "gping"
+# Command-line DNS client for humans (replaces dig for everyday lookups)
+brew "doggo"
+# SOcket CAT: netcat on steroids
+brew "socat"
+# Open source relational database management system (client only)
+brew "mysql-client"
+
+# ---------------------------------------------------------------------------
+# Vendor and third-party Packages
+# ---------------------------------------------------------------------------
+# Package Replicated applications and manage releases, channels, customers and entitlements using a command-line interface.
+brew "replicatedhq/replicated/cli", trusted: true
+
+# ---------------------------------------------------------------------------
+# macOS only (casks do not install on Linux)
+# ---------------------------------------------------------------------------
+if OS.mac?
+  # Send macOS User Notifications from the command line, with click actions
+  brew "terminal-notifier"
+  # Pinentry for GPG on Mac
+  brew "pinentry-mac"
+  # User interface to the TELNET protocol
+  brew "telnet"
+
+  cask "font-fira-code"
+  cask "font-fira-code-nerd-font"
+  # The font in the Ghostty Dotfile
+  cask "font-comic-shanns-mono-nerd-font"
+  # Terminal emulator that uses platform-native UI and GPU acceleration
+  cask "ghostty"
+end
+
+# ---------------------------------------------------------------------------
+# Linux only
+# ---------------------------------------------------------------------------
+if OS.linux?
+  # Starts one ssh-agent for all shells (config.fish runs it)
+  brew "keychain"
+end
+
+# ---------------------------------------------------------------------------
+# Windows side of a WSL Machine (see docs/adr/0001). The Nerd Fonts have no
+# winget ID, so the README lists them as a manual step.
+# ---------------------------------------------------------------------------
+if OS.wsl?
+  # Docker engine for WSL 2
+  winget "Docker.DockerDesktop"
+end
+
+# ---------------------------------------------------------------------------
+# Go packages (go install)
+# ---------------------------------------------------------------------------
+go "github.com/air-verse/air"
+go "github.com/bobg/modver/v2/cmd/modver"
+go "github.com/cloudflare/cfssl/cmd/cfssl"
+go "github.com/cloudflare/cfssl/cmd/cfssl-bundle"
+go "github.com/cloudflare/cfssl/cmd/cfssl-certinfo"
+go "github.com/cloudflare/cfssl/cmd/cfssl-newkey"
+go "github.com/cloudflare/cfssl/cmd/cfssl-scan"
+go "github.com/cloudflare/cfssl/cmd/cfssljson"
+go "github.com/cloudflare/cfssl/cmd/mkbundle"
+go "github.com/cloudflare/cfssl/cmd/multirootca"
+go "github.com/davidrjonas/semver-cli"
+go "github.com/ginolatorilla/devops/cmd/devops"
+go "github.com/ginolatorilla/devops/cmd/kubectl-plugins/kubectl-generate_kubeconfig"
+go "github.com/ginolatorilla/devops/cmd/kubectl-plugins/kubectl-list_addresses"
+go "github.com/ginolatorilla/devops/cmd/kubectl-plugins/kubectl-list_certs"
+go "github.com/ginolatorilla/devops/cmd/kubectl-plugins/kubectl-list_finalizers"
+go "github.com/ginolatorilla/devops/cmd/kubectl-plugins/kubectl-list_unhealthy_pods"
+go "github.com/ginolatorilla/devops/cmd/kubectl-plugins/kubectl-lookup_address"
+go "github.com/ginolatorilla/devops/cmd/kubectl-plugins/kubectl-trigger_cronjob"
+go "github.com/go-delve/delve/cmd/dlv"
+go "github.com/google/go-containerregistry/cmd/crane"
+go "github.com/jstemmer/go-junit-report/v2"
+go "github.com/mattn/goreman"
+go "github.com/norwoodj/helm-docs/cmd/helm-docs"
+go "github.com/spf13/cobra-cli"
+go "golang.org/dl/go1.26.6"
+go "golang.org/x/pkgsite/cmd/pkgsite"
+go "golang.org/x/tools/cmd/godoc"
+go "golang.org/x/tools/gopls"
+go "golang.org/x/vuln/cmd/govulncheck"
+go "honnef.co/go/tools/cmd/staticcheck"
+
+# ---------------------------------------------------------------------------
+# npm packages (npm install --global)
+# ---------------------------------------------------------------------------
+npm "bash-language-server"
+npm "eslint"
+npm "pyright"
+npm "typescript"
+npm "vitest"
+
+# ---------------------------------------------------------------------------
+# uv tools (uv tool install)
+# ---------------------------------------------------------------------------
+uv "black"
+uv "python-lsp-server"
+
+# ---------------------------------------------------------------------------
+# kubectl plugins (krew install)
+# ---------------------------------------------------------------------------
+krew "access-matrix"
+krew "ctx"
+krew "explore"
+krew "fuzzy"
+krew "graph"
+krew "klock"
+krew "krew"
+krew "ktop"
+krew "kubescape"
+krew "neat"
+krew "ns"
+krew "preflight"
+krew "rbac-tool"
+krew "resource-capacity"
+krew "score"
+krew "sniff"
+krew "status"
+krew "stern"
+krew "support-bundle"
+krew "tree"
+krew "view-secret"
+
+# ---------------------------------------------------------------------------
+# Local override: Private Packages for this Machine (not tracked)
+# ---------------------------------------------------------------------------
+local_brewfile = File.join(Dir.home, ".Brewfile.local")
+instance_eval(File.read(local_brewfile), local_brewfile) if File.exist?(local_brewfile)

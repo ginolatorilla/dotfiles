@@ -1,0 +1,311 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Starship prompt for fish (vi mode) in Ghostty with Fira Code Nerd Font.
+# Frame layout adapted from a3chron/phex (https://stellar.a3chron.dev/a3chron/phex).
+#
+#   ╭─ 󱃾 prod-cluster (apps)  demo-account@eu-west-2 ──╌╌  v1.26.10  v4.3.2        main *7!2 ─╮
+#   ├╌  ~/g/o/myproject                                         2026-11-19 22:42 ╌┤
+#   ╰─ ❯                                                          ✘ 1 󰾆 4s210ms ╌┘
+#
+# Line 1: what your commands talk to (kubernetes, aws, docker), then toolchains
+#         and, at the right edge, the git branch, state and status counts.
+# Line 2: where you are (os, ssh host, directory), then the date and time at the right edge.
+# Line 3: input, with cached sudo credentials and background jobs before the prompt
+#         character, and the result of the last command (exit code, duration) at the right edge.
+#         The right side is `right_format`, which fish draws as its right prompt.
+#
+# Rules for editing this file:
+# - Colours are ANSI names only (no hex or 0-255 numbers), so the prompt follows the
+#   terminal theme and works on 16-colour terminals. `frame` is a palette alias.
+# - Nerd Font glyphs are written as \u escapes in "double-quoted" strings. Formats that
+#   contain starship escapes like \( or \[ use 'single-quoted' strings.
+# - Glyphs come from `starship preset nerd-font-symbols` (Nerd Fonts v3).
+
+format = """
+[╭─ ](frame)\
+$kubernetes\
+$aws\
+$docker_context\
+[──╌╌ ](frame)\
+$package\
+$golang\
+$helm\
+$java\
+$python\
+$nodejs\
+$rust\
+$terraform\
+$fill\
+$git_branch\
+$git_commit\
+$git_state\
+$git_status\
+[ ─╮](frame)\
+$line_break\
+[├╌ ](frame)\
+$os\
+$username\
+$hostname\
+$container\
+$directory\
+$fill\
+$time\
+[ ╌┤](frame)\
+$line_break\
+[╰─ ](frame)\
+$sudo\
+$jobs\
+$character"""
+
+add_newline = false
+
+palette = 'ansi'
+
+# Right side of the input row, drawn by fish_right_prompt at the terminal edge.
+right_format = """
+$status\
+$cmd_duration\
+[ ╌┘](frame)"""
+
+[palettes.ansi]
+frame = 'bright-black'
+
+[fill]
+symbol = ' '
+
+# -----------------------------------------------------------------------------
+# Line 1: what your commands talk to
+# -----------------------------------------------------------------------------
+
+# Always on: kubectl is the most used tool in the shell history.
+# Context names are shortened; any context with "prod" in it is red.
+# The first matching entry wins, and each pattern must match the whole name.
+[kubernetes]
+disabled = false
+symbol = "\U000f10fe "
+format = '[$symbol$context( \($namespace\))]($style) '
+style = 'bold blue'
+
+# EKS: arn:aws:eks:<region>:<account>:cluster/<name>
+[[kubernetes.contexts]]
+context_pattern = 'arn:aws:eks:[\w-]+:\d+:cluster/(?P<cluster>.*prod.*)'
+context_alias = 'eks/$cluster'
+style = 'bold red'
+
+[[kubernetes.contexts]]
+context_pattern = 'arn:aws:eks:[\w-]+:\d+:cluster/(?P<cluster>.+)'
+context_alias = 'eks/$cluster'
+
+# OpenShift (oc login): <namespace>/api-<cluster-host>:<port>/<user>
+[[kubernetes.contexts]]
+context_pattern = '[^/]*/api-(?P<cluster>[^:/]*prod[^:/]*):\d+/.+'
+context_alias = 'oc/$cluster'
+style = 'bold red'
+
+[[kubernetes.contexts]]
+context_pattern = '[^/]*/api-(?P<cluster>[^:/]+):\d+/.+'
+context_alias = 'oc/$cluster'
+
+# kubeadm and most others: <user>@<cluster>
+[[kubernetes.contexts]]
+context_pattern = '[^@]+@(?P<cluster>.*prod.*)'
+context_alias = '$cluster'
+style = 'bold red'
+
+[[kubernetes.contexts]]
+context_pattern = '[^@]+@(?P<cluster>.+)'
+context_alias = '$cluster'
+
+[[kubernetes.contexts]]
+context_pattern = '.*prod.*'
+style = 'bold red'
+
+# Profile and region.
+[aws]
+symbol = " "
+format = '[$symbol($profile)(@$region)]($style) '
+style = 'bold yellow'
+
+# Only in directories with a Dockerfile or compose file, and only when the
+# context is not "default" (for example "orbstack").
+[docker_context]
+symbol = " "
+format = '[$symbol$context]($style) '
+style = 'bold blue'
+
+# Cached sudo credentials.
+[sudo]
+disabled = false
+format = '[sudo]($style) '
+style = 'red underline'
+
+# Toolchains, only in directories that use them.
+
+# Version of the Chart.yaml, pom.xml or package.json in the current directory.
+[package]
+symbol = "\U000f03d7 "
+format = '[$symbol$version]($style) '
+style = 'bold yellow'
+
+[golang]
+symbol = " "
+format = '[$symbol($version )]($style)'
+style = 'bold cyan'
+
+[helm]
+symbol = " "
+format = '[$symbol($version )]($style)'
+style = 'bold blue'
+
+[java]
+symbol = " "
+format = '[$symbol($version )]($style)'
+style = 'red'
+
+[python]
+symbol = " "
+format = '[$symbol$pyenv_prefix($version )(\($virtualenv\) )]($style)'
+style = 'bold yellow'
+
+[nodejs]
+symbol = " "
+format = '[$symbol($version )]($style)'
+style = 'bold green'
+
+[rust]
+symbol = "\U000f1617 "
+format = '[$symbol($version )]($style)'
+style = 'bold red'
+
+[terraform]
+symbol = " "
+format = '[$symbol$workspace]($style) '
+style = 'bold purple'
+
+# -----------------------------------------------------------------------------
+# Line 2: where you are, and the result of the last command
+# -----------------------------------------------------------------------------
+
+[os]
+disabled = false
+format = '[$symbol]($style)'
+style = 'bold'
+
+[os.symbols]
+Macos = " "
+Ubuntu = " "
+Debian = " "
+Fedora = " "
+Alpine = " "
+Amazon = " "
+Redhat = "\U000f111b "
+RedHatEnterprise = "\U000f111b "
+CentOS = " "
+Arch = " "
+NixOS = " "
+Linux = " "
+Windows = "\U000f0372 "
+Unknown = " "
+
+# Shown on SSH, as root, or as a different user.
+[username]
+format = '[$user]($style) '
+style_user = 'bold yellow'
+style_root = 'bold red'
+
+[hostname]
+ssh_symbol = " "
+format = '[$ssh_symbol$hostname]($style) '
+style = 'bold green'
+
+[container]
+format = '[$symbol $name]($style) '
+style = 'bold red'
+
+[directory]
+truncation_length = 4
+truncate_to_repo = true
+fish_style_pwd_dir_length = 1
+format = '[$path]($style)[$read_only]($read_only_style) '
+repo_root_format = '[$before_root_path]($before_repo_root_style)[$repo_root]($repo_root_style)[$path]($style)[$read_only]($read_only_style) '
+style = 'cyan'
+before_repo_root_style = 'cyan'
+repo_root_style = 'bold cyan'
+read_only = " \U000f033e"
+read_only_style = 'red'
+
+[git_branch]
+symbol = " "
+format = ' [$symbol$branch(:$remote_branch)]($style)'
+style = 'bold purple'
+truncation_length = 32
+truncation_symbol = '…'
+
+# Hash and tag, only on a detached HEAD.
+[git_commit]
+format = " [ $hash$tag]($style)"
+style = 'bold green'
+tag_disabled = false
+tag_symbol = "  "
+
+# Rebase, cherry-pick, merge, bisect in progress.
+[git_state]
+format = ' [$state( $progress_current/$progress_total)]($style)'
+style = 'bold yellow'
+
+# Counts per change type, for example !2+1?3⇡1.
+[git_status]
+format = '( [$all_status$ahead_behind]($style))'
+style = 'bold'
+conflicted = '[=${count}](bold red)'
+stashed = '[*${count}](cyan)'
+deleted = '[✘${count}](red)'
+renamed = '[»${count}](yellow)'
+modified = '[!${count}](yellow)'
+staged = '[+${count}](green)'
+untracked = '[?${count}](blue)'
+ahead = '[⇡${count}](cyan)'
+behind = '[⇣${count}](cyan)'
+diverged = '[⇡${ahead_count}⇣${behind_count}](bold yellow)'
+
+# Exit code, only after a command that failed (✘ 1). Hidden when the code is 0.
+# For a failed pipeline, the code of each stage (✘ 0|1). Signals are named (✘ 130 INT).
+[status]
+disabled = false
+pipestatus = true
+symbol = '✘ '
+format = '[$symbol$status( $signal_name)]($style)'
+pipestatus_format = '[✘ $pipestatus( $signal_name)]($style)'
+pipestatus_segment_format = '$status'
+pipestatus_separator = '|'
+style = 'bold red'
+
+# Duration after every command.
+[cmd_duration]
+min_time = 0
+show_milliseconds = true
+format = " [\U000f0f86 $duration]($style)"
+style = 'yellow'
+
+[time]
+disabled = false
+time_format = '%Y-%m-%d %H:%M'
+format = ' [$time]($style)'
+style = 'frame'
+
+# -----------------------------------------------------------------------------
+# Line 3: input
+# -----------------------------------------------------------------------------
+
+[jobs]
+format = '[$symbol$number]($style) '
+style = 'bold blue'
+
+# fish vi mode: ❯ in insert mode, ❮ in normal, visual and replace modes.
+[character]
+success_symbol = '[❯](bold green)'
+error_symbol = '[❯](bold red)'
+vimcmd_symbol = '[❮](bold blue)'
+vimcmd_visual_symbol = '[❮](bold yellow)'
+vimcmd_replace_symbol = '[❮](bold purple)'
+vimcmd_replace_one_symbol = '[❮](bold purple)'

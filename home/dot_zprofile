@@ -1,0 +1,10 @@
+
+# Put Homebrew on PATH. Homebrew is in /opt/homebrew on macOS and in
+# /home/linuxbrew/.linuxbrew on Linux.
+for brew_prefix in /opt/homebrew /home/linuxbrew/.linuxbrew; do
+    if [ -x "$brew_prefix/bin/brew" ]; then
+        eval "$("$brew_prefix/bin/brew" shellenv)"
+        break
+    fi
+done
+unset brew_prefix

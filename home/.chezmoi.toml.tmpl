@@ -1,0 +1,10 @@
+# chezmoi config. `chezmoi init` writes this to ~/.config/chezmoi/chezmoi.toml.
+#
+# The chezmoi source directory is the whole Checkout. chezmoi reads
+# .chezmoiroot in the Checkout and uses home/ as the source state.
+sourceDir = {{ .chezmoi.workingTree | quote }}
+
+# Each Dotfile is a symlink into the Checkout. Templates, private_ files and
+# executable_ files are copies.
+{{/* `install.sh --check` passes --mode symlink. Keep the two the same. */ -}}
+mode = "symlink"

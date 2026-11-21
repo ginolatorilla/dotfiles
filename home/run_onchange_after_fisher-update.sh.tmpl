@@ -1,0 +1,22 @@
+#!/bin/sh
+# Install the fish plugins in ~/.config/fish/fish_plugins.
+#
+# The Homebrew fisher formula supplies the fisher command, and brew bundle
+# installs it first. `fisher update` then installs jorgebucaran/fisher from
+# fish_plugins into ~/.config/fish/functions. fisher writes fish_plugins
+# through the symlink, so the repo copy changes when you add a plugin.
+#
+# chezmoi runs this script after brew-bundle, and again when this hash
+# changes:
+#   fish_plugins: {{ include "dot_config/fish/fish_plugins" | sha256sum }}
+
+set -eu
+
+for brew_prefix in /opt/homebrew /home/linuxbrew/.linuxbrew; do
+    if [ -x "$brew_prefix/bin/brew" ]; then
+        eval "$("$brew_prefix/bin/brew" shellenv)"
+        break
+    fi
+done
+
+fish -c 'fisher update'
