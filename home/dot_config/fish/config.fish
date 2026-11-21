@@ -20,9 +20,13 @@ if command -q python3
     fish_add_path (python3 -c 'import os,sysconfig;print(sysconfig.get_path("scripts",f"{os.name}_user"))')
 end
 
-# On Linux, keychain starts one ssh agent and one gpg agent for all shells.
-if command -q keychain
-    eval (keychain --agents gpg,ssh --eval)
+# On Linux, keychain starts one ssh-agent for all shells. It loads no keys:
+# ssh adds each key on first use (AddKeysToAgent in ~/.ssh/config). GnuPG
+# starts gpg-agent itself. keychain 3 ignores --agents and prints a warning.
+if command -q keychain; and begin
+        status is-interactive; or status is-login
+    end
+    eval "$(keychain add --eval --quiet --noask)"
 end
 
 if [ -d $HOME/.local/bin ]

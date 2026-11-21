@@ -99,6 +99,12 @@ jobs:
       - name: Start fish with the Dotfiles
         run: |
           brew install fish
-          fish -c 'set --query K9S_CONFIG_DIR; and functions --query mkcd' 2> fish.err
+          checks='set --query K9S_CONFIG_DIR; and functions --query mkcd'
+          if [ "$RUNNER_OS" = Linux ]; then
+            # Run the keychain hook in config.fish: it needs a login shell.
+            brew install keychain
+            checks="$checks; and set --query SSH_AUTH_SOCK"
+          fi
+          fish --login -c "$checks" 2> fish.err
           cat fish.err
           test ! -s fish.err
