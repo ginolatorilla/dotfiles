@@ -16,7 +16,9 @@ REAL_CHEZMOI="${CHEZMOI:-$(command -v chezmoi || true)}"
     exit 2
 }
 
-T="$(mktemp -d "${TMPDIR:-/tmp}/install_test.XXXXXX")"
+# chezmoi writes clean paths in symlink targets. On macOS, $TMPDIR ends with a
+# slash, so `cd` and `pwd` remove the double slash from $T.
+T="$(cd "$(mktemp -d "${TMPDIR:-/tmp}/install_test.XXXXXX")" && pwd)"
 if [ "${KEEP:-0}" = 1 ]; then
     echo "Scratch directory: $T"
 else
