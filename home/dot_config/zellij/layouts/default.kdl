@@ -1,0 +1,34 @@
+// The built-in tab bar is at the top. zjstatus is at the bottom. It shows the
+// mode and the keys of the mode, and a clock. Update the hint line of a mode
+// when you change the keys of that mode in config.kdl.
+// The colors are ANSI names, so that they follow the terminal theme.
+layout {
+    default_tab_template {
+        pane size=1 borderless=true {
+            plugin location="zellij:tab-bar"
+        }
+        children
+        pane size=1 borderless=true {
+            plugin location="file:~/.config/zellij/plugins/zjstatus.wasm" {
+                format_left  "{mode}"
+                format_right "{command_clock}"
+                format_space ""
+
+                mode_normal       "#[bg=blue,fg=black,bold] NORMAL #[fg=white] Ctrl+Space prefix"
+                mode_tmux         "#[bg=yellow,fg=black,bold] PREFIX #[fg=white] v/s split  hjkl focus  x close  z zoom  c tab  n/p tab  [ scroll  r resize  m move  : palette  ? keys  Esc back"
+                mode_scroll       "#[bg=green,fg=black,bold] SCROLL #[fg=white] j/k line  ^d/^u half  ^f/^b page  g/G top/end  / search  v edit  c copy output  q quit"
+                mode_enter_search "#[bg=green,fg=black,bold] ENTER SEARCH #[fg=white] type the term  Enter search  Esc cancel"
+                mode_search       "#[bg=green,fg=black,bold] SEARCH #[fg=white] n older  N newer  / new  c case  w wrap  o word  q quit"
+                mode_resize       "#[bg=magenta,fg=black,bold] RESIZE #[fg=white] hjkl grow  HJKL shrink  +/- all  Esc done"
+                mode_move         "#[bg=magenta,fg=black,bold] MOVE #[fg=white] hjkl move  n/p next/back  Esc done"
+                mode_rename_tab   "#[bg=cyan,fg=black,bold] RENAME #[fg=white] type the name  Enter keep  Esc undo"
+                // zjstatus v0.25.0 has no rename_session key. RenameSession uses this line.
+                mode_default_to_mode "rename_tab"
+
+                command_clock_command  "date \"+%a %d %b %H:%M\""
+                command_clock_format   "#[fg=white] {stdout} "
+                command_clock_interval "5"
+            }
+        }
+    }
+}

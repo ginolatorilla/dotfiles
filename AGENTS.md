@@ -33,10 +33,22 @@ The GitHub repo is public. Each tracked line is published.
 - On WSL, use only Linux mechanisms: OSC 52 for the clipboard, a terminal pinentry and a Linux ssh agent. Then native Linux also works.
 - Keep `IgnoreUnknown UseKeychain` as the first line of the ssh config. OpenSSH on Linux stops on unknown options.
 
+## Keybindings
+
+`docs/cheatsheet.md` is the single source of truth for the keys of Ghostty, Zellij, nvim and fish. It shows the key path: which layer reads each key first.
+
+- Give each key one owner. Before you add or change a key, find it in `docs/cheatsheet.md` and in the config of each tool. If two tools bind the same key, move one of them.
+- Choose keys that no macOS system shortcut uses. Choose keys that also work in the WSL terminal, or record the difference in the cheatsheet.
+- When a Cmd shortcut or an Option key goes through Ghostty, check that the byte sequence that Ghostty sends is not the sequence of another key (for example, Cmd+B and Option+Left).
+- Update `docs/cheatsheet.md` in the same commit as each keybinding change, in Ghostty, Zellij, nvim or fish. Add, change and remove rows, and correct the key path diagram if a layer changes.
+- Before you finish, compare the cheatsheet with the configs. Each key in one must be in the other.
+- Update the zjstatus hint line of the mode in `home/dot_config/zellij/layouts/default.kdl` in the same commit as each Zellij key change.
+
 ## Packages
 
 - List each Package in `home/dot_Brewfile`, including the `go`, `npm`, `uv` and `krew` entries. List Private Packages in `~/.Brewfile.local`.
 - Put casks and macOS-only formulae under `if OS.mac?`. On Linux, `brew bundle` tries to install casks and fails.
+- Put software that has no Homebrew formula in `home/.chezmoiexternal.toml`, with a pinned version and a SHA-256 checksum.
 - Put Linux-only entries under `if OS.linux?`. Put `winget` entries under `if OS.wsl?`.
 - `brew bundle cleanup --force` also removes unlisted Go, npm, uv, krew and cargo packages. Run the command without `--force` first and read the list.
 - `brew bundle --global` reads `~/.Brewfile` if `XDG_CONFIG_HOME` is not set.
