@@ -196,6 +196,29 @@ installs no Package. It needs `git` and chezmoi.
 
 1. Make sure that the last line of the output is `All tests passed.`
 
+## Known limitations
+
+### Zellij sessions created in Zellij are dark in light mode
+
+When Ghostty uses its light theme, a Zellij session that you create from the
+session manager, or with `zellij action switch-session`, has the dark theme.
+A session that you start from Ghostty, for example with `zellij -s agents`,
+has the light theme.
+
+Zellij 0.46.0 asks the terminal for its light or dark mode only when the
+client starts. When the client switches to a new session, it does not ask
+again, so the new session uses the dark default
+([source](https://github.com/zellij-org/zellij/blob/v0.46.0/zellij-client/src/lib.rs#L1385)).
+No Zellij setting fixes this and also keeps the automatic change between
+light and dark.
+
+To give the session the light theme, do one of these steps:
+
+- Press `Ctrl+Space :` and run the `SetLightTheme` action.
+- Run `zellij action set-light-theme` in a pane.
+
+When you upgrade Zellij, check if this limitation is still there.
+
 ## Repo layout
 
 ```text
