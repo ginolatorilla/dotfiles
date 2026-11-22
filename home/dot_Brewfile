@@ -90,6 +90,8 @@ brew "k9s"
 brew "huseyinbabal/tap/taws"
 # Pluggable terminal workspace, with terminal multiplexer as the base feature
 brew "zellij"
+# alternative watch command with history, diff view, JSONL logging, and change hooks
+brew "hwatch"
 
 # ---------------------------------------------------------------------------
 # Shell, terminal and multiplexing
