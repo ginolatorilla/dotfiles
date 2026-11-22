@@ -1,8 +1,9 @@
 // In Normal mode, Zellij binds only Ctrl+Space (the tmux-style prefix), so
 // that all Alt and Ctrl keys reach nvim and fish. Each key after the prefix
 // does one action and goes back to Normal mode. The Resize, Move, Scroll,
-// Search and RenameTab modes keep the Zellij default keys. They do not keep
-// the default Ctrl keys that switch to other modes.
+// Search and Rename modes have their own keys. They do not keep the default
+// Ctrl keys that switch to other modes. Update the zjstatus hint line of a
+// mode in layouts/default.kdl when you change the keys of that mode.
 keybinds clear-defaults=true {
     normal {
         bind "Ctrl Space" { SwitchToMode "Tmux"; }
@@ -41,13 +42,26 @@ keybinds clear-defaults=true {
             };
             SwitchToMode "Normal"
         }
-        bind "Space" { NextSwapLayout; SwitchToMode "Normal"; }
         bind "Ctrl Space" { Write 0; SwitchToMode "Normal"; }
         bind "f" { ToggleFloatingPanes; SwitchToMode "Normal"; }
         bind "F" { NewFloatingPane; SwitchToMode "Normal"; }
         bind "r" { SwitchToMode "Resize"; }
         bind "m" { SwitchToMode "Move"; }
         bind "q" { Quit; SwitchToMode "Normal"; }
+        bind "!" { BreakPane; SwitchToMode "Normal"; }
+        bind "{" { MovePaneBackwards; SwitchToMode "Normal"; }
+        bind "}" { MovePane; SwitchToMode "Normal"; }
+        bind "$" { SwitchToMode "RenameSession"; SessionNameInput 0; }
+        bind "(" { GoToPreviousSession; SwitchToMode "Normal"; }
+        bind ")" { GoToNextSession; SwitchToMode "Normal"; }
+        bind "PageUp" { SwitchToMode "Scroll"; PageScrollUp; }
+        bind "?" {
+            LaunchOrFocusPlugin "configuration" {
+                floating true
+                move_to_focused_tab true
+            };
+            SwitchToMode "Normal"
+        }
     }
     resize {
         bind "h" "Left" { Resize "Increase Left"; }
@@ -102,6 +116,10 @@ keybinds clear-defaults=true {
     renametab {
         bind "Ctrl c" { SwitchToMode "Normal"; }
         bind "Esc" { UndoRenameTab; SwitchToMode "Normal"; }
+    }
+    renamesession {
+        bind "Ctrl c" { SwitchToMode "Normal"; }
+        bind "Esc" { UndoRenameSession; SwitchToMode "Normal"; }
     }
     shared_except "normal" "locked" {
         bind "Enter" "Esc" { SwitchToMode "Normal"; }

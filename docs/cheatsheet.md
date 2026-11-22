@@ -67,13 +67,18 @@ Press Ctrl+Space, then the key. Each key does one action and goes back to Normal
 | `[` | Scroll mode (stays) |
 | `d` | Detach the session |
 | `w` | Session manager (floating) |
-| `Space` | Next swap layout |
-| `Ctrl+Space` | Send Ctrl+Space to the pane |
+| `Ctrl+Space` | Send Ctrl+Space to the pane. fish adds a space only if the command line has text |
 | `f` | Show or hide the floating panes |
 | `F` | New floating pane |
 | `r` | Resize mode (stays) |
 | `m` | Move mode (stays) |
 | `q` | Quit (Zellij asks first) |
+| `!` | Move the focused pane to a new tab |
+| `{` / `}` | Move the pane back / forward |
+| `$` | Rename the session (stays in the rename mode) |
+| `(` / `)` | Previous session / next session |
+| `PageUp` | Scroll mode, one page up (stays) |
+| `?` | Show the keys of each mode (floating settings page) |
 | `Esc` | Go back to Normal mode |
 
 ### Zellij modes with their own keys

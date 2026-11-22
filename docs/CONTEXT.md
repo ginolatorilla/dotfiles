@@ -57,3 +57,7 @@ _Avoid_: private (for credentials)
 **Cmd shortcut**:
 A VS Code-style Cmd+key press on macOS that reaches nvim as an Alt+key press.
 _Avoid_: Mac shortcut, super key
+
+**Prefix key**:
+Ctrl+Space, the key that makes the terminal multiplexer (Zellij or tmux) read the next key as a command.
+_Avoid_: leader (nvim's Space), tmux key
