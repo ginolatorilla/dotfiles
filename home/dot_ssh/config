@@ -3,7 +3,6 @@ IgnoreUnknown UseKeychain
 # stops on unknown options.
 
 Include ~/.ssh/config.local
-Include ~/github.com/ginolatorilla/.sshconfig
 
 Host github.com
     IdentitiesOnly yes
