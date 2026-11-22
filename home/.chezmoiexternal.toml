@@ -6,3 +6,12 @@
     executable = false
     [".config/zellij/plugins/zjstatus.wasm".checksum]
         sha256 = "282ceab219e56e1908c9fac33907241fe6c3e1ef7d85faab3e5f438cef87b8fe"
+
+# zellij-commandpalette: the command palette plugin of Zellij (v0.1.1, MIT).
+# It lists each action that is bound to a key in config.kdl.
+[".config/zellij/plugins/zellij-commandpalette.wasm"]
+    type = "file"
+    url = "https://github.com/rashidalnaemi/zellij-commandpalette/releases/download/v0.1.1/zellij-commandpalette.wasm"
+    executable = false
+    [".config/zellij/plugins/zellij-commandpalette.wasm".checksum]
+        sha256 = "5065acd02a8af118bc43fd126c83627bb756fa30725f30864f382a53bf22beff"

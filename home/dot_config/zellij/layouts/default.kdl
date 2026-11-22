@@ -15,7 +15,7 @@ layout {
                 format_space ""
 
                 mode_normal       "#[bg=blue,fg=black,bold] NORMAL #[fg=white] Ctrl+Space prefix"
-                mode_tmux         "#[bg=yellow,fg=black,bold] PREFIX #[fg=white] v/s split  hjkl focus  x close  z zoom  c tab  n/p tab  [ scroll  r resize  m move  ? keys  Esc back"
+                mode_tmux         "#[bg=yellow,fg=black,bold] PREFIX #[fg=white] v/s split  hjkl focus  x close  z zoom  c tab  n/p tab  [ scroll  r resize  m move  : palette  ? keys  Esc back"
                 mode_scroll       "#[bg=green,fg=black,bold] SCROLL #[fg=white] j/k line  ^d/^u half  ^f/^b page  g/G top/end  / search  v edit  c copy output  q quit"
                 mode_enter_search "#[bg=green,fg=black,bold] ENTER SEARCH #[fg=white] type the term  Enter search  Esc cancel"
                 mode_search       "#[bg=green,fg=black,bold] SEARCH #[fg=white] n older  N newer  / new  c case  w wrap  o word  q quit"

@@ -4,6 +4,10 @@
 // Search and Rename modes have their own keys. They do not keep the default
 // Ctrl keys that switch to other modes. Update the zjstatus hint line of a
 // mode in layouts/default.kdl when you change the keys of that mode.
+// The command palette (Ctrl+Space :) lists each action that is bound to a key
+// in any mode. The pane, tab and session blocks are palette-only: no key
+// enters these modes, so their keys never fire. Each bind there only puts an
+// action in the palette. Add each new Zellij action to one of these blocks.
 keybinds clear-defaults=true {
     normal {
         bind "Ctrl Space" { SwitchToMode "Tmux"; }
@@ -37,6 +41,13 @@ keybinds clear-defaults=true {
         bind "d" { Detach; SwitchToMode "Normal"; }
         bind "w" {
             LaunchOrFocusPlugin "session-manager" {
+                floating true
+                move_to_focused_tab true
+            };
+            SwitchToMode "Normal"
+        }
+        bind ":" {
+            LaunchOrFocusPlugin "zellij-commandpalette" {
                 floating true
                 move_to_focused_tab true
             };
@@ -121,6 +132,55 @@ keybinds clear-defaults=true {
         bind "Ctrl c" { SwitchToMode "Normal"; }
         bind "Esc" { UndoRenameSession; SwitchToMode "Normal"; }
     }
+    pane {
+        bind "a" { NewPane; }
+        bind "b" { FocusPreviousPane; }
+        bind "c" { MoveFocusOrTab "Left"; }
+        bind "d" { MoveFocusOrTab "Right"; }
+        bind "e" { TogglePaneEmbedOrFloating; }
+        bind "f" { TogglePaneFrames; }
+        bind "g" { TogglePanePinned; }
+        bind "h" { ToggleActiveSyncTab; }
+        bind "i" { ToggleStackListOrientation; }
+        bind "j" { Clear; }
+        bind "k" { ShowFloatingPanes; }
+        bind "l" { HideFloatingPanes; }
+        bind "m" { UndoRenamePane; }
+        bind "n" { OpenContextMenu; }
+        bind "o" { MutePane; }
+        bind "p" { WatchPane; }
+        bind "q" { IgnorePaneOutput; }
+        bind "r" { MarkPaneSeen; }
+        bind "s" { ToggleMirrorResize; }
+    }
+    tab {
+        bind "a" { MoveTab "Left"; }
+        bind "b" { MoveTab "Right"; }
+        bind "c" { ToggleTab; }
+        bind "d" { BreakPaneLeft; }
+        bind "e" { BreakPaneRight; }
+        bind "f" { NextSwapLayout; }
+        bind "g" { PreviousSwapLayout; }
+        bind "h" { UndoRenameTab; }
+        bind "i" { MuteTab; }
+    }
+    session {
+        bind "a" { ToggleSession; }
+        bind "b" { UndoRenameSession; }
+        bind "c" { MuteSession; }
+        bind "d" { MarkAllSeen; }
+        bind "e" { GoToNextAttention; }
+        bind "f" { DismissInfoPopups; }
+        bind "g" { DumpLayout; }
+        bind "h" { ToggleMouseMode; }
+        bind "i" { ToggleBars; }
+        bind "j" { HideBars; }
+        bind "k" { ShowBars; }
+        bind "l" { ToggleTheme; }
+        bind "m" { SetDarkTheme; }
+        bind "n" { SetLightTheme; }
+        bind "o" { ToggleTrayIcon; }
+    }
     shared_except "normal" "locked" {
         bind "Enter" "Esc" { SwitchToMode "Normal"; }
     }
@@ -139,6 +199,7 @@ plugins {
     filepicker location="zellij:strider" {
         cwd "/"
     }
+    zellij-commandpalette location="file:~/.config/zellij/plugins/zellij-commandpalette.wasm"
     plugin-manager location="zellij:plugin-manager"
     prompt location="zellij:prompt"
     session-manager location="zellij:session-manager"

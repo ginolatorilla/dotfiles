@@ -67,6 +67,7 @@ Press Ctrl+Space, then the key. Each key does one action and goes back to Normal
 | `[` | Scroll mode (stays) |
 | `d` | Detach the session |
 | `w` | Session manager (floating) |
+| `:` | Command palette (zellij-commandpalette, floating). Lists every bound action, including the palette-only ones in the `pane`, `tab` and `session` blocks of `config.kdl` |
 | `Ctrl+Space` | Send Ctrl+Space to the pane. fish adds a space only if the command line has text |
 | `f` | Show or hide the floating panes |
 | `F` | New floating pane |
