@@ -80,8 +80,8 @@ Press Ctrl+Space, then the key. Each key does one action and goes back to Normal
 
 | Mode | Keys |
 |---|---|
-| Scroll | `j` `k` line down and up. `h` `l` or `Ctrl+b` `Ctrl+f` page up and down. `d` `u` half page down and up. `[` `]` previous and next prompt. `m` select the command at the scroll position. `s` search. `e` edit the scrollback. `c` copy the last command output. `Ctrl+c` go to the bottom. `Esc` or `Enter` leave. |
-| Search | `n` `p` next and previous match. `c` case sensitivity. `w` wrap. `o` whole word. The Scroll keys for movement also work. |
+| Scroll | `j` `k` line down and up. `Ctrl+d` `Ctrl+u` half page down and up. `Ctrl+f` `Ctrl+b` or `PageDown` `PageUp` page down and up. `g` `G` top and bottom. `/` or `?` search (both do the same). `[` `]` previous and next prompt. `m` select the command at the scroll position. `v` or `e` edit the scrollback in nvim (copy there with `"+y`). `c` copy the last command output. `q` or `Ctrl+c` go to the bottom and leave. `Esc` or `Enter` leave. |
+| Search | `n` older match (up). `N` newer match (down). `/` or `?` new search. `c` case sensitivity. `w` wrap. `o` whole word. The Scroll keys for movement also work. |
 | Resize | `h` `j` `k` `l` increase the pane in that direction. `H` `J` `K` `L` decrease. `=` or `+` increase. `-` decrease. `Esc` or `Enter` leave. |
 | Move | `h` `j` `k` `l` or arrow keys move the pane. `n` or `Tab` move to the next position. `p` move back. `Esc` or `Enter` leave. |
 | Rename | Type the name. `Enter` keep the name. `Esc` undo and leave. |
