@@ -83,6 +83,8 @@ Press Ctrl+Space, then the key. Each key does one action and goes back to Normal
 
 ### Zellij modes with their own keys
 
+The bar at the bottom of Zellij (zjstatus) shows the mode and the keys of the mode, and a clock.
+
 | Mode | Keys |
 |---|---|
 | Scroll | `j` `k` line down and up. `Ctrl+d` `Ctrl+u` half page down and up. `Ctrl+f` `Ctrl+b` or `PageDown` `PageUp` page down and up. `g` `G` top and bottom. `/` or `?` search (both do the same). `[` `]` previous and next prompt. `m` select the command at the scroll position. `v` or `e` edit the scrollback in nvim (copy there with `"+y`). `c` copy the last command output. `q` or `Ctrl+c` go to the bottom and leave. `Esc` or `Enter` leave. |

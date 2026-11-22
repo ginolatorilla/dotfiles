@@ -16,3 +16,4 @@ Linux Machines install Packages with Homebrew from the same Brewfile as macOS, n
 
 - Full Homebrew support on Linux needs glibc 2.39 or later, which Ubuntu 24.04 provides. Older distros fall to Tier 2.
 - Linux needs `build-essential procps curl file git` from apt before Homebrew installs. This is the only sudo step.
+- chezmoi externals (`home/.chezmoiexternal.toml`) are a second installer. Use them only for software that has no Homebrew formula, such as the zjstatus plugin. Pin the version and the SHA-256. The change is easy to reverse.

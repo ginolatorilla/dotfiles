@@ -98,6 +98,10 @@ chezmoi runs `brew bundle --global` again only if `home/dot_Brewfile` or
 `~/.Brewfile.local` changed. `install.sh` also installs each Package and fish
 plugin that is missing, for example one that you removed by hand.
 
+Software that has no Homebrew formula, such as the zjstatus plugin of Zellij,
+comes from `home/.chezmoiexternal.toml`. chezmoi downloads it with a pinned
+version and checks the SHA-256.
+
 ## Checking for Drift
 
 To see what Setup would change on a Machine, without changing anything,
