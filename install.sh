@@ -13,7 +13,7 @@ readonly APT_PACKAGES=(build-essential procps curl file git)
 
 usage() {
     cat <<'EOF'
-Usage: install.sh [--dotfiles-only] [--check] [--help]
+Usage: install.sh [--dotfiles-only] [--force] [--check] [--help]
 
 Do the Setup of this Machine: bring it in line with the Checkout. A second
 run changes nothing if nothing changed.
@@ -24,6 +24,9 @@ run changes nothing if nothing changed.
                     Homebrew fish the login shell.
   --dotfiles-only   Place the Dotfiles only. Do not install the Packages and
                     do not change the login shell.
+  --force           Let chezmoi overwrite or restore a Dotfile that changed in
+                    the home directory, without asking. Without this option,
+                    chezmoi asks, and Setup stops if there is no terminal.
   --check           Show the Drift: what Setup would change. Change nothing.
                     This also works before the first Setup. With
                     --dotfiles-only, show what `install.sh --dotfiles-only`
@@ -154,6 +157,7 @@ apply_dotfiles() {
     else
         log "Placing the Dotfiles and installing the Packages"
     fi
+    [ "$force" = false ] || args+=(--force)
     "$(brew --prefix)/bin/chezmoi" "${args[@]}"
 }
 
@@ -309,7 +313,16 @@ check_dotfiles() {
     if [ "$dotfiles_only" = true ]; then
         args+=(--exclude scripts)
     fi
-    status="$(run_chezmoi "$1" "${args[@]}")" || die "chezmoi status failed."
+    # chezmoi downloads each external to its cache. Use a scratch cache, so
+    # that --check writes nothing to the home directory.
+    local cache
+    cache="$(mktemp -d)" || die "Cannot make a scratch directory."
+    args+=(--cache "$cache")
+    status="$(run_chezmoi "$1" "${args[@]}")" || {
+        rm -rf "$cache"
+        die "chezmoi status failed."
+    }
+    rm -rf "$cache"
     if [ -z "$status" ]; then
         report ok Dotfiles
     else
@@ -415,10 +428,12 @@ check_drift() {
 main() {
     local mode=setup
     dotfiles_only=false
+    force=false
     while [ "$#" -gt 0 ]; do
         case "$1" in
         --check) mode=check ;;
         --dotfiles-only) dotfiles_only=true ;;
+        --force) force=true ;;
         -h | --help)
             usage
             return 0

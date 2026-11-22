@@ -284,6 +284,14 @@ assert "the chezmoi config is the same" cmp -s "$T/chezmoi.toml.1" "$T/home/.con
 expect_no_call 'brew install'
 expect_no_output Cloning
 
+echo "== Setup --dotfiles-only --force restores a Dotfile that changed in HOME"
+rm "$T/home/.config/fish/config.fish"
+echo 'edited' >"$T/home/.config/fish/config.fish"
+: >"$LOG"
+run_install_sh --dotfiles-only --force
+expect_status 0
+assert "config.fish is a symlink again" [ -L "$T/home/.config/fish/config.fish" ]
+
 echo "== --check --dotfiles-only after Setup --dotfiles-only finds no Drift"
 run_install_sh --check --dotfiles-only
 expect_status 0

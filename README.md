@@ -94,6 +94,10 @@ git pull
 ./install.sh
 ```
 
+If you changed or deleted a Dotfile or an external file by hand, chezmoi asks
+before it restores the file, and `install.sh` stops if there is no terminal.
+Run `./install.sh --force` to restore the file without a question.
+
 chezmoi runs `brew bundle --global` again only if `home/dot_Brewfile` or
 `~/.Brewfile.local` changed. `install.sh` also installs each Package and fish
 plugin that is missing, for example one that you removed by hand.
