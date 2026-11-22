@@ -141,9 +141,7 @@ brew "neovim"
 # Languages and runtimes
 # ---------------------------------------------------------------------------
 # Interpreted, interactive, object-oriented programming language
-brew "python@3.13"
-# Interpreted, interactive, object-oriented programming language
-brew "python@3.12"
+brew "python"
 # Powerful, lightweight programming language
 brew "lua"
 # Open-source, cross-platform JavaScript runtime environment
@@ -252,8 +250,6 @@ brew "gping"
 brew "doggo"
 # SOcket CAT: netcat on steroids
 brew "socat"
-# Open source relational database management system (client only)
-brew "mysql-client"
 
 # ---------------------------------------------------------------------------
 # Vendor and third-party Packages
@@ -301,16 +297,6 @@ end
 # Go packages (go install)
 # ---------------------------------------------------------------------------
 go "github.com/air-verse/air"
-go "github.com/bobg/modver/v2/cmd/modver"
-go "github.com/cloudflare/cfssl/cmd/cfssl"
-go "github.com/cloudflare/cfssl/cmd/cfssl-bundle"
-go "github.com/cloudflare/cfssl/cmd/cfssl-certinfo"
-go "github.com/cloudflare/cfssl/cmd/cfssl-newkey"
-go "github.com/cloudflare/cfssl/cmd/cfssl-scan"
-go "github.com/cloudflare/cfssl/cmd/cfssljson"
-go "github.com/cloudflare/cfssl/cmd/mkbundle"
-go "github.com/cloudflare/cfssl/cmd/multirootca"
-go "github.com/davidrjonas/semver-cli"
 go "github.com/ginolatorilla/devops/cmd/devops"
 go "github.com/ginolatorilla/devops/cmd/kubectl-plugins/kubectl-generate_kubeconfig"
 go "github.com/ginolatorilla/devops/cmd/kubectl-plugins/kubectl-list_addresses"
@@ -320,17 +306,11 @@ go "github.com/ginolatorilla/devops/cmd/kubectl-plugins/kubectl-list_unhealthy_p
 go "github.com/ginolatorilla/devops/cmd/kubectl-plugins/kubectl-lookup_address"
 go "github.com/ginolatorilla/devops/cmd/kubectl-plugins/kubectl-trigger_cronjob"
 go "github.com/go-delve/delve/cmd/dlv"
-go "github.com/google/go-containerregistry/cmd/crane"
-go "github.com/jstemmer/go-junit-report/v2"
-go "github.com/mattn/goreman"
 go "github.com/norwoodj/helm-docs/cmd/helm-docs"
 go "github.com/spf13/cobra-cli"
-go "golang.org/dl/go1.26.6"
 go "golang.org/x/pkgsite/cmd/pkgsite"
-go "golang.org/x/tools/cmd/godoc"
 go "golang.org/x/tools/gopls"
 go "golang.org/x/vuln/cmd/govulncheck"
-go "honnef.co/go/tools/cmd/staticcheck"
 
 # ---------------------------------------------------------------------------
 # npm packages (npm install --global)
@@ -353,23 +333,16 @@ uv "python-lsp-server"
 krew "access-matrix"
 krew "ctx"
 krew "explore"
-krew "fuzzy"
-krew "graph"
 krew "klock"
 krew "krew"
 krew "ktop"
 krew "kubescape"
 krew "neat"
 krew "ns"
-krew "preflight"
 krew "rbac-tool"
 krew "resource-capacity"
-krew "score"
 krew "sniff"
-krew "status"
 krew "stern"
-krew "support-bundle"
-krew "tree"
 krew "view-secret"
 
 # ---------------------------------------------------------------------------
